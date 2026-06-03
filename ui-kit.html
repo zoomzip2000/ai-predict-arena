@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Predict Arena — UI Kit (Dual Theme Neumorphism)</title>
-  <meta name="description" content="Интерактивный UI-Kit проекта AI Predict Arena (AIPA). Поддержка светлой и тёмной тем в стиле neumorphism." />
+  <title>AI Predict Arena — UI Kit (Light Neumorphism)</title>
+  <meta name="description" content="Интерактивный UI-Kit проекта AI Predict Arena (AIPA). Светлый neumorphism-стиль в духе Themesberg Neumorphism UI." />
   <!-- Fonts: Space Grotesk (UI) + Space Mono (data/numbers) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,48 +44,48 @@
        ДИЗАЙН-ТОКЕНЫ  (точно скопированы с Themesberg Neumorph UI)
     ═══════════════════════════════════════════════════════════ */
     :root {
-      /* --- Палитра (Dark Neumorphism & Glassmorphism) --- */
-      --nm-bg:          #0f0a26;   /* основной фоновый цвет */
-      --nm-bg-light:    #080415;   /* чуть темнее */
-      --nm-bg-white:    #161038;   /* чуть светлее, для ховеров */
-      --nm-surface:     #0f0a26;   /* поверхность карточек */
-      --nm-border:      #1c1444;   /* цвет рамок */
+      /* --- Палитра (из neumorphism.css :root) --- */
+      --nm-bg:          #e6e7ee;   /* основной фон, bg-primary */
+      --nm-bg-light:    #ECF0F3;   /* чуть светлее */
+      --nm-bg-white:    #fafbfe;   /* почти белый */
+      --nm-surface:     #e6e7ee;   /* поверхность карточек */
+      --nm-border:      #D1D9E6;   /* цвет рамок */
 
       /* Текст */
-      --nm-text-dark:   #f3f4f6;   /* заголовки (белый) */
-      --nm-text-body:   #cbd5e1;   /* основной текст (светло-серый) */
-      --nm-text-muted:  #94a3b8;   /* второстепенный */
-      --nm-text-gray:   #64748b;   /* placeholder */
+      --nm-text-dark:   #31344b;   /* заголовки */
+      --nm-text-body:   #44476a;   /* основной текст */
+      --nm-text-muted:  #66799e;   /* второстепенный */
+      --nm-text-gray:   #93a5be;   /* placeholder */
 
       /* Акцентные цвета */
-      --nm-secondary:   #9333ea;   /* фиолетовый неон — основная кнопка CTA */
-      --nm-success:     #22c55e;   /* зелёный неон */
-      --nm-danger:      #ef4444;   /* красный неон */
-      --nm-warning:     #f59e0b;   /* янтарный неон */
-      --nm-info:        #06b6d4;   /* циановый неон */
-      --nm-dark:        #080415;   /* глубокий темный */
-      --nm-soft:        #0f0a26;   /* мягкий (= bg) */
+      --nm-secondary:   #2D4CC8;   /* синий — основная кнопка CTA */
+      --nm-success:     #18634B;   /* зелёный */
+      --nm-danger:      #A91E2C;   /* красный */
+      --nm-warning:     #F0B400;   /* жёлтый */
+      --nm-info:        #0056B3;   /* голубой */
+      --nm-dark:        #31344b;   /* тёмный */
+      --nm-soft:        #e6e7ee;   /* мягкий (= bg) */
 
-      /* Тени — СЕРДЦЕ СИСТЕМЫ (рассчитано вокруг фона #0f0a26) */
+      /* Тени — СЕРДЦЕ СИСТЕМЫ */
       --shadow-soft:
-        6px 6px 14px #05030d,
-        -6px -6px 14px #1b1248;
+        6px 6px 12px #b8b9be,
+        -6px -6px 12px #ffffff;
 
       --shadow-soft-sm:
-        3px 3px 7px #05030d,
-        -3px -3px 7px #1b1248;
+        3px 3px 6px #b8b9be,
+        -3px -3px 6px #ffffff;
 
       --shadow-soft-lg:
-        10px 10px 22px #05030d,
-        -10px -10px 22px #1b1248;
+        10px 10px 20px #b8b9be,
+        -10px -10px 20px #ffffff;
 
       --shadow-inset:
-        inset 3px 3px 6px #05030d,
-        inset -3px -3px 7px #1b1248;
+        inset 2px 2px 5px #b8b9be,
+        inset -3px -3px 7px #ffffff;
 
       --shadow-inset-sm:
-        inset 2px 2px 4px #05030d,
-        inset -2px -2px 5px #1b1248;
+        inset 1px 1px 3px #b8b9be,
+        inset -2px -2px 5px #ffffff;
 
       /* Типографика */
       --font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -384,7 +384,7 @@
     }
 
     .btn-primary:hover {
-      background: #171038;
+      background: #d0d2e0;
     }
 
     .btn-primary:active,
@@ -404,13 +404,12 @@
       background: var(--nm-secondary);
       color: #ECF0F3;
       border-color: var(--nm-secondary);
-      box-shadow: var(--btn-secondary-shadow);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
     }
 
     .btn-secondary:hover {
-      background: var(--hover-btn-secondary);
+      background: #2640a9;
       color: #ECF0F3;
-      box-shadow: var(--btn-secondary-hover-shadow);
     }
 
     .btn-secondary:active {
@@ -420,77 +419,60 @@
     /* Success */
     .btn-success {
       background: var(--nm-success);
-      color: var(--btn-success-text-color);
+      color: #ECF0F3;
       border-color: var(--nm-success);
-      box-shadow: var(--btn-success-shadow);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
     }
 
-    .btn-success:hover {
-      background: var(--hover-btn-success);
-      color: var(--btn-success-text-color);
-      box-shadow: var(--btn-success-hover-shadow);
-    }
+    .btn-success:hover { background: #114434; color: #ECF0F3; }
 
     /* Danger */
     .btn-danger {
       background: var(--nm-danger);
       color: #ECF0F3;
       border-color: var(--nm-danger);
-      box-shadow: var(--btn-danger-shadow);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
     }
 
-    .btn-danger:hover {
-      background: var(--hover-btn-danger);
-      color: #ECF0F3;
-      box-shadow: var(--btn-danger-hover-shadow);
-    }
+    .btn-danger:hover { background: #891824; color: #ECF0F3; }
 
     /* Warning */
     .btn-warning {
       background: var(--nm-warning);
-      color: var(--btn-warning-text-color);
+      color: #ECF0F3;
       border-color: var(--nm-warning);
-      box-shadow: var(--btn-warning-shadow);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
     }
 
-    .btn-warning:hover {
-      background: var(--hover-btn-warning);
-      color: var(--btn-warning-text-color);
-      box-shadow: var(--btn-warning-hover-shadow);
-    }
+    .btn-warning:hover { background: #ca9700; color: #ECF0F3; }
 
     /* Info */
     .btn-info {
       background: var(--nm-info);
-      color: var(--btn-info-text-color);
+      color: #ECF0F3;
       border-color: var(--nm-info);
-      box-shadow: var(--btn-info-shadow);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
     }
 
-    .btn-info:hover {
-      background: var(--hover-btn-info);
-      color: var(--btn-info-text-color);
-      box-shadow: var(--btn-info-hover-shadow);
-    }
+    .btn-info:hover { background: #00448d; color: #ECF0F3; }
 
     /* Dark */
     .btn-dark {
       background: var(--nm-dark);
       color: #ECF0F3;
-      border-color: var(--nm-border);
-      box-shadow: var(--shadow-soft);
+      border-color: var(--nm-dark);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
     }
 
-    .btn-dark:hover { background: #120c2e; color: #ECF0F3; }
+    .btn-dark:hover { background: #222434; color: #ECF0F3; }
 
     /* Light */
     .btn-light {
       background: var(--nm-border);
       color: var(--nm-text-dark);
       border-color: var(--nm-border);
-      box-shadow: var(--shadow-soft-sm);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
     }
-    .btn-light:hover { background: #251d54; color: var(--nm-text-dark); }
 
     /* Pill variant */
     .btn-pill { border-radius: var(--radius-pill) !important; }
@@ -856,33 +838,33 @@
     }
 
     .badge-success {
-      background: rgba(34, 197, 94, 0.12);
+      background: rgba(24, 99, 75, 0.12);
       color: var(--nm-success);
-      border: 1px solid rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(24, 99, 75, 0.2);
     }
 
     .badge-danger {
-      background: rgba(239, 68, 68, 0.1);
+      background: rgba(169, 30, 44, 0.1);
       color: var(--nm-danger);
-      border: 1px solid rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(169, 30, 44, 0.2);
     }
 
     .badge-warning {
-      background: rgba(245, 158, 11, 0.12);
-      color: var(--nm-warning);
-      border: 1px solid rgba(245, 158, 11, 0.25);
+      background: rgba(240, 180, 0, 0.12);
+      color: #a07800;
+      border: 1px solid rgba(240, 180, 0, 0.25);
     }
 
     .badge-secondary {
-      background: rgba(147, 51, 234, 0.1);
+      background: rgba(45, 76, 200, 0.1);
       color: var(--nm-secondary);
-      border: 1px solid rgba(147, 51, 234, 0.2);
+      border: 1px solid rgba(45, 76, 200, 0.2);
     }
 
     .badge-dark {
-      background: rgba(8, 4, 21, 0.2);
-      color: var(--nm-text-muted);
-      border: 1px solid rgba(8, 4, 21, 0.3);
+      background: rgba(49, 52, 75, 0.1);
+      color: var(--nm-dark);
+      border: 1px solid rgba(49, 52, 75, 0.2);
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -892,7 +874,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(5, 3, 13, 0.7);
+      background: rgba(49, 52, 75, 0.5);
       z-index: 200;
       align-items: center;
       justify-content: center;
@@ -1245,7 +1227,7 @@
     .form-check input:checked + .check-box {
       background: var(--nm-secondary);
       border-color: var(--nm-secondary);
-      box-shadow: 0 0 10px rgba(147, 51, 234, 0.6);
+      box-shadow: 2px 2px 4px rgba(45,76,200,0.3), -1px -1px 3px rgba(255,255,255,0.5);
       color: #fff;
     }
 
@@ -1319,13 +1301,13 @@
     }
 
     .toggle.on {
-      background: rgba(147, 51, 234, 0.25);
+      background: rgba(45, 76, 200, 0.15);
     }
 
     .toggle.on::after {
       left: 24px;
       background: var(--nm-secondary);
-      box-shadow: 0 0 10px rgba(147, 51, 234, 0.6);
+      box-shadow: 2px 2px 5px rgba(45, 76, 200, 0.4), -1px -1px 3px rgba(255,255,255,0.5);
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -1339,7 +1321,7 @@
       border-top: 1px solid var(--nm-border);
       margin-top: 80px;
       background: var(--nm-bg);
-      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 -4px 12px rgba(184, 185, 190, 0.3);
     }
 
     /* ─── Утилиты ─────────────────────────────────────────────── */
@@ -1361,22 +1343,11 @@
   </style>
 </head>
 <body>
-  <script>
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark-theme');
-    }
-  </script>
 
   <!-- ───────────── ШАПКА ───────────── -->
   <header class="kit-header">
     <div class="kit-logo">AI Predict <span>Arena</span></div>
-    <div style="display:flex;align-items:center;gap:16px">
-      <button class="btn btn-primary btn-sm btn-pill" id="theme-toggle-btn" aria-label="Переключить тему" style="display:inline-flex;align-items:center;gap:8px">
-        <ph-sun weight="light" class="icon-sm" id="theme-toggle-icon"></ph-sun>
-        <span id="theme-toggle-text">Тёмная тема</span>
-      </button>
-      <span class="kit-badge" id="kit-theme-badge">UI Kit · Light Neumorphism</span>
-    </div>
+    <span class="kit-badge">UI Kit · Light Neumorphism</span>
   </header>
 
   <!-- ───────────── НАВИГАЦИЯ ───────────── -->
@@ -1404,123 +1375,123 @@
     <!-- ═══════ 1. ЦВЕТОВАЯ ПАЛИТРА ═══════ -->
     <section class="kit-section" id="colors">
       <h2 class="section-title">1 — Цветовая палитра</h2>
-      <p class="section-desc">Источник: Themesberg Neumorphism UI + AIPA Dark Neumorphism</p>
+      <p class="section-desc">Источник: <code>Themesberg Neumorphism UI Pro → neumorphism.css :root</code> + AIPA акценты</p>
 
       <div class="palette-grid">
         <!-- Нейтральные -->
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-bg)"></div>
+          <div class="swatch__color" style="background:#e6e7ee"></div>
           <div class="swatch__info">
             <div class="swatch__name">BG / Surface</div>
-            <div class="swatch__hex" data-var="--nm-bg">#e6e7ee</div>
-            <div class="swatch__var">--nm-bg</div>
+            <div class="swatch__hex">#e6e7ee</div>
+            <div class="swatch__var">--nm-bg / --primary</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-bg-light)"></div>
+          <div class="swatch__color" style="background:#ECF0F3"></div>
           <div class="swatch__info">
-            <div class="swatch__name">Light BG</div>
-            <div class="swatch__hex" data-var="--nm-bg-light">#ECF0F3</div>
-            <div class="swatch__var">--nm-bg-light</div>
+            <div class="swatch__name">Light White</div>
+            <div class="swatch__hex">#ECF0F3</div>
+            <div class="swatch__var">--nm-bg-light / --white</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-bg-white)"></div>
+          <div class="swatch__color" style="background:#fafbfe"></div>
           <div class="swatch__info">
             <div class="swatch__name">Near White</div>
-            <div class="swatch__hex" data-var="--nm-bg-white">#fafbfe</div>
-            <div class="swatch__var">--nm-bg-white</div>
+            <div class="swatch__hex">#fafbfe</div>
+            <div class="swatch__var">--gray-200</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-border)"></div>
+          <div class="swatch__color" style="background:#D1D9E6"></div>
           <div class="swatch__info">
-            <div class="swatch__name">Border</div>
-            <div class="swatch__hex" data-var="--nm-border">#D1D9E6</div>
-            <div class="swatch__var">--nm-border</div>
+            <div class="swatch__name">Border / Light</div>
+            <div class="swatch__hex">#D1D9E6</div>
+            <div class="swatch__var">--nm-border / --light</div>
           </div>
         </div>
         <!-- Тени (отображаем оттенки) -->
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--shadow-color-dark)"></div>
+          <div class="swatch__color" style="background:#b8b9be"></div>
           <div class="swatch__info">
             <div class="swatch__name">Shadow Dark</div>
-            <div class="swatch__hex" data-var="--shadow-color-dark">#b8b9be</div>
-            <div class="swatch__var">тень — темная</div>
+            <div class="swatch__hex">#b8b9be</div>
+            <div class="swatch__var">тень — тёмная часть</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--shadow-color-light);border:1px solid var(--nm-border)"></div>
+          <div class="swatch__color" style="background:#ffffff;border:1px solid #e6e7ee"></div>
           <div class="swatch__info">
             <div class="swatch__name">Shadow Light</div>
-            <div class="swatch__hex" data-var="--shadow-color-light">#ffffff</div>
-            <div class="swatch__var">тень — светлая</div>
+            <div class="swatch__hex">#ffffff</div>
+            <div class="swatch__var">тень — светлая часть</div>
           </div>
         </div>
         <!-- Текст -->
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-text-dark)"></div>
+          <div class="swatch__color" style="background:#31344b"></div>
           <div class="swatch__info">
             <div class="swatch__name">Text Dark</div>
-            <div class="swatch__hex" data-var="--nm-text-dark">#31344b</div>
-            <div class="swatch__var">--nm-text-dark</div>
+            <div class="swatch__hex">#31344b</div>
+            <div class="swatch__var">--nm-text-dark / --dark</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-text-body)"></div>
+          <div class="swatch__color" style="background:#44476a"></div>
           <div class="swatch__info">
             <div class="swatch__name">Text Body</div>
-            <div class="swatch__hex" data-var="--nm-text-body">#44476a</div>
-            <div class="swatch__var">--nm-text-body</div>
+            <div class="swatch__hex">#44476a</div>
+            <div class="swatch__var">--nm-text-body / --gray</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-text-muted)"></div>
+          <div class="swatch__color" style="background:#66799e"></div>
           <div class="swatch__info">
             <div class="swatch__name">Text Muted</div>
-            <div class="swatch__hex" data-var="--nm-text-muted">#66799e</div>
-            <div class="swatch__var">--nm-text-muted</div>
+            <div class="swatch__hex">#66799e</div>
+            <div class="swatch__var">--nm-text-muted / --gray-700</div>
           </div>
         </div>
         <!-- Акценты -->
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-secondary)"></div>
+          <div class="swatch__color" style="background:#2D4CC8"></div>
           <div class="swatch__info">
             <div class="swatch__name">Secondary / CTA</div>
-            <div class="swatch__hex" data-var="--nm-secondary">#2D4CC8</div>
-            <div class="swatch__var">--nm-secondary</div>
+            <div class="swatch__hex">#2D4CC8</div>
+            <div class="swatch__var">--nm-secondary / --secondary</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-success)"></div>
+          <div class="swatch__color" style="background:#18634B"></div>
           <div class="swatch__info">
             <div class="swatch__name">Success</div>
-            <div class="swatch__hex" data-var="--nm-success">#18634B</div>
-            <div class="swatch__var">--nm-success</div>
+            <div class="swatch__hex">#18634B</div>
+            <div class="swatch__var">--nm-success / --success</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-danger)"></div>
+          <div class="swatch__color" style="background:#A91E2C"></div>
           <div class="swatch__info">
             <div class="swatch__name">Danger</div>
-            <div class="swatch__hex" data-var="--nm-danger">#A91E2C</div>
-            <div class="swatch__var">--nm-danger</div>
+            <div class="swatch__hex">#A91E2C</div>
+            <div class="swatch__var">--nm-danger / --danger</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-warning)"></div>
+          <div class="swatch__color" style="background:#F0B400"></div>
           <div class="swatch__info">
             <div class="swatch__name">Warning</div>
-            <div class="swatch__hex" data-var="--nm-warning">#F0B400</div>
-            <div class="swatch__var">--nm-warning</div>
+            <div class="swatch__hex">#F0B400</div>
+            <div class="swatch__var">--nm-warning / --warning</div>
           </div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--nm-info)"></div>
+          <div class="swatch__color" style="background:#0056B3"></div>
           <div class="swatch__info">
-            <div class="swatch__name">Info / Accent</div>
-            <div class="swatch__hex" data-var="--nm-info">#0056B3</div>
-            <div class="swatch__var">--nm-info</div>
+            <div class="swatch__name">Info</div>
+            <div class="swatch__hex">#0056B3</div>
+            <div class="swatch__var">--nm-info / --info</div>
           </div>
         </div>
       </div>
@@ -2410,8 +2381,8 @@
 
   <!-- FOOTER -->
   <footer class="kit-footer">
-    <div style="font-weight:700;color:var(--nm-text-dark);margin-bottom:6px">AI Predict Arena · UI Kit v2.0 — Neumorphism UI</div>
-    Вдохновлено: <a href="https://demo.themesberg.com/neumorphism-ui-pro/" style="color:var(--nm-secondary)">Themesberg Neumorphism UI Pro</a> · Palette #e6e7ee / #0f0a26 · Font: Space Grotesk
+    <div style="font-weight:700;color:var(--nm-text-dark);margin-bottom:6px">AI Predict Arena · UI Kit v2.0 — Light Neumorphism</div>
+    Вдохновлено: <a href="https://demo.themesberg.com/neumorphism-ui-pro/" style="color:var(--nm-secondary)">Themesberg Neumorphism UI Pro</a> · Palette #e6e7ee · Font: Nunito Sans
   </footer>
 
   <script>
@@ -2463,91 +2434,6 @@
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
-
-    /* ══════ СИСТЕМА ПЕРЕКЛЮЧЕНИЯ ТЕМ ══════ */
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    const themeIcon = document.getElementById('theme-toggle-icon');
-    const themeText = document.getElementById('theme-toggle-text');
-    const themeBadge = document.getElementById('kit-theme-badge');
-
-    // Функция обновления HEX кодов на плашках палитры
-    function updateSwatchHex() {
-      // Даем браузеру долю секунды применить стили
-      setTimeout(() => {
-        const swatches = document.querySelectorAll('.swatch__hex');
-        swatches.forEach(sw => {
-          const varName = sw.getAttribute('data-var');
-          if (varName) {
-            let val = getComputedStyle(document.body).getPropertyValue(varName).trim();
-            // Превращаем rgb(r, g, b) в красивый HEX для отображения
-            if (val.startsWith('rgb')) {
-              val = rgbToHex(val);
-            }
-            sw.textContent = val.toUpperCase();
-          }
-        });
-      }, 50);
-    }
-
-    function rgbToHex(rgbStr) {
-      const parts = rgbStr.match(/\d+/g);
-      if (!parts || parts.length < 3) return rgbStr;
-      const r = parseInt(parts[0]).toString(16).padStart(2, '0');
-      const g = parseInt(parts[1]).toString(16).padStart(2, '0');
-      const b = parseInt(parts[2]).toString(16).padStart(2, '0');
-      return `#${r}${g}${b}`;
-    }
-
-    function enableDarkTheme() {
-      document.body.classList.add('dark-theme');
-      localStorage.setItem('theme', 'dark');
-      if (themeText) themeText.textContent = 'Светлая тема';
-      
-      const currentIcon = document.getElementById('theme-toggle-icon');
-      if (currentIcon) {
-        const newIcon = document.createElement('ph-sun');
-        newIcon.setAttribute('weight', 'light');
-        newIcon.setAttribute('class', 'icon-sm');
-        newIcon.id = 'theme-toggle-icon';
-        currentIcon.parentNode.replaceChild(newIcon, currentIcon);
-      }
-      if (themeBadge) themeBadge.textContent = 'UI Kit · Dark Neumorphism';
-      updateSwatchHex();
-    }
-
-    function enableLightTheme() {
-      document.body.classList.remove('dark-theme');
-      localStorage.setItem('theme', 'light');
-      if (themeText) themeText.textContent = 'Тёмная тема';
-      
-      const currentIcon = document.getElementById('theme-toggle-icon');
-      if (currentIcon) {
-        const newIcon = document.createElement('ph-moon');
-        newIcon.setAttribute('weight', 'light');
-        newIcon.setAttribute('class', 'icon-sm');
-        newIcon.id = 'theme-toggle-icon';
-        currentIcon.parentNode.replaceChild(newIcon, currentIcon);
-      }
-      if (themeBadge) themeBadge.textContent = 'UI Kit · Light Neumorphism';
-      updateSwatchHex();
-    }
-
-    // Инициализация при загрузке
-    if (document.body.classList.contains('dark-theme')) {
-      enableDarkTheme();
-    } else {
-      enableLightTheme();
-    }
-
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        if (document.body.classList.contains('dark-theme')) {
-          enableLightTheme();
-        } else {
-          enableDarkTheme();
-        }
-      });
-    }
   </script>
 
 </body>
