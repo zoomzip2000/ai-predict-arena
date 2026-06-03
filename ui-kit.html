@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Predict Arena — UI Kit (Light Neumorphism)</title>
+  <meta name="description" content="Интерактивный UI-Kit проекта AI Predict Arena (AIPA). Светлый neumorphism-стиль в духе Themesberg Neumorphism UI." />
+  <!-- Fonts: Space Grotesk (UI) + Space Mono (data/numbers) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <!-- Phosphor Icons — light weight, MIT license -->
+  <!-- ПРАВИЛО: НИКОГДА не использовать emoji в UI. Только Phosphor Icons (ph-light / ph-regular) -->
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       ДИЗАЙН-ТОКЕНЫ  (точно скопированы с Themesberg Neumorph UI)
+    ═══════════════════════════════════════════════════════════ */
+    :root {
+      /* --- Палитра (из neumorphism.css :root) --- */
+      --nm-bg:          #e6e7ee;   /* основной фон, bg-primary */
+      --nm-bg-light:    #ECF0F3;   /* чуть светлее */
+      --nm-bg-white:    #fafbfe;   /* почти белый */
+      --nm-surface:     #e6e7ee;   /* поверхность карточек */
+      --nm-border:      #D1D9E6;   /* цвет рамок */
+
+      /* Текст */
+      --nm-text-dark:   #31344b;   /* заголовки */
+      --nm-text-body:   #44476a;   /* основной текст */
+      --nm-text-muted:  #66799e;   /* второстепенный */
+      --nm-text-gray:   #93a5be;   /* placeholder */
+
+      /* Акцентные цвета */
+      --nm-secondary:   #2D4CC8;   /* синий — основная кнопка CTA */
+      --nm-success:     #18634B;   /* зелёный */
+      --nm-danger:      #A91E2C;   /* красный */
+      --nm-warning:     #F0B400;   /* жёлтый */
+      --nm-info:        #0056B3;   /* голубой */
+      --nm-dark:        #31344b;   /* тёмный */
+      --nm-soft:        #e6e7ee;   /* мягкий (= bg) */
+
+      /* Тени — СЕРДЦЕ СИСТЕМЫ */
+      --shadow-soft:
+        6px 6px 12px #b8b9be,
+        -6px -6px 12px #ffffff;
+
+      --shadow-soft-sm:
+        3px 3px 6px #b8b9be,
+        -3px -3px 6px #ffffff;
+
+      --shadow-soft-lg:
+        10px 10px 20px #b8b9be,
+        -10px -10px 20px #ffffff;
+
+      --shadow-inset:
+        inset 2px 2px 5px #b8b9be,
+        inset -3px -3px 7px #ffffff;
+
+      --shadow-inset-sm:
+        inset 1px 1px 3px #b8b9be,
+        inset -2px -2px 5px #ffffff;
+
+      /* Типографика */
+      --font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono:   'Space Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+      /* Шкала размеров */
+      --text-xs:   11px;
+      --text-sm:   13px;
+      --text-base: 15px;
+      --text-lg:   17px;
+      --text-xl:   20px;
+      --text-2xl:  26px;
+      --text-3xl:  36px;
+      --text-4xl:  52px;
+
+      /* Border radius */
+      --radius:    0.55rem;   /* 8.8px — базовый */
+      --radius-sm: 0.3rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-pill: 50rem;
+    }
+
+    /* ─── СБРОС ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-family: var(--font-family);
+      background-color: var(--nm-bg);
+      color: var(--nm-text-body);
+      font-size: 16px;
+      font-weight: 400;          /* Space Grotesk: 400 = книжный нейтраль */
+      line-height: 1.55;
+      letter-spacing: -0.01em;   /* чуть плотнее — строже, современнее */
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body { min-height: 100vh; padding-bottom: 80px; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--nm-bg); }
+    ::-webkit-scrollbar-thumb {
+      background: var(--nm-border);
+      border-radius: var(--radius-pill);
+    }
+    ::-webkit-scrollbar-thumb:hover { background: var(--nm-text-muted); }
+
+    /* ─── ШАПКА ─────────────────────────────────────────────── */
+    .kit-header {
+      background: var(--nm-bg);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .kit-logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--nm-text-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .kit-logo span {
+      color: var(--nm-secondary);
+    }
+
+    .kit-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--nm-bg);
+      box-shadow: var(--shadow-soft-sm);
+      color: var(--nm-secondary);
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── НАВИГАЦИЯ ──────────────────────────────────────────── */
+    .kit-nav {
+      padding: 24px 40px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .kit-nav a {
+      display: inline-block;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--nm-text-muted);
+      text-decoration: none;
+      background: var(--nm-bg);
+      box-shadow: var(--shadow-soft-sm);
+      border-radius: var(--radius-pill);
+      transition: all 0.2s ease;
+    }
+
+    .kit-nav a:hover {
+      box-shadow: var(--shadow-inset-sm);
+      color: var(--nm-secondary);
+    }
+
+    /* ─── КОНТЕЙНЕР ──────────────────────────────────────────── */
+    .kit-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── СЕКЦИИ ─────────────────────────────────────────────── */
+    .kit-section {
+      margin-top: 64px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--nm-secondary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--nm-border);
+    }
+
+    .section-desc {
+      font-size: 13px;
+      color: var(--nm-text-muted);
+      margin-bottom: 28px;
+    }
+
+    .component-label {
+      font-size: 10px;
+      color: var(--nm-text-muted);
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      margin-top: 8px;
+      background: var(--nm-bg);
+      box-shadow: var(--shadow-inset-sm);
+      padding: 4px 10px;
+      border-radius: var(--radius);
+      display: inline-block;
+      max-width: 340px;
+    }
+
+    .component-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .component-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--nm-border);
+      margin-top: 56px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       1. ЦВЕТОВАЯ ПАЛИТРА
+    ═══════════════════════════════════════════════════════════ */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 16px;
+    }
+
+    .swatch {
+      background: var(--nm-bg);
+      box-shadow: var(--shadow-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .swatch:hover { box-shadow: var(--shadow-inset); }
+
+    .swatch__color {
+      height: 64px;
+      width: 100%;
+    }
+
+    .swatch__info {
+      padding: 8px 10px;
+    }
+
+    .swatch__name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--nm-text-dark);
+    }
+
+    .swatch__hex {
+      font-size: 10px;
+      color: var(--nm-text-muted);
+      font-family: monospace;
+    }
+
+    .swatch__var {
+      font-size: 9px;
+      color: var(--nm-secondary);
+      font-family: monospace;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       2. ТИПОГРАФИКА
+    ═══════════════════════════════════════════════════════════ */
+    .type-showcase { display: flex; flex-direction: column; gap: 4px; }
+
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 14px 20px;
+      background: var(--nm-bg);
+      border-radius: var(--radius);
+      transition: box-shadow 0.2s;
+    }
+
+    .type-row:hover { box-shadow: var(--shadow-inset); }
+
+    .type-meta {
+      min-width: 200px;
+      font-size: 10px;
+      color: var(--nm-text-muted);
+      font-family: monospace;
+    }
+
+    .type-h1   { font-size: 52px; font-weight: 700; color: var(--nm-text-dark); line-height: 1.05; letter-spacing: -0.03em; }
+    .type-h2   { font-size: 38px; font-weight: 600; color: var(--nm-text-dark); letter-spacing: -0.02em; }
+    .type-h3   { font-size: 26px; font-weight: 600; color: var(--nm-text-dark); letter-spacing: -0.01em; }
+    .type-h4   { font-size: 20px; font-weight: 600; color: var(--nm-text-dark); }
+    .type-body { font-size: 15px; font-weight: 400; color: var(--nm-text-body); line-height: 1.6; }
+    .type-sm   { font-size: 13px; font-weight: 400; color: var(--nm-text-muted); }
+    .type-xs   { font-size: 11px; font-weight: 500; color: var(--nm-text-gray); letter-spacing: 0.04em; text-transform: uppercase; }
+    .type-label{ font-size: 13px; font-weight: 600; color: var(--nm-text-dark); letter-spacing: 0.02em; text-transform: uppercase; }
+    .type-link { font-size: 15px; font-weight: 500; color: var(--nm-secondary); cursor: pointer; }
+    .type-link:hover { text-decoration: underline; }
+    /* Space Mono — для цифровых/числовых данных */
+    .type-mono { font-family: var(--font-mono); font-size: 16px; font-weight: 400; color: var(--nm-text-dark); letter-spacing: 0.02em; }
+    .type-mono-sm { font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--nm-text-muted); }
+
+    /* ═══════════════════════════════════════════════════════════
+       3. КНОПКИ
+    ═══════════════════════════════════════════════════════════ */
+
+    /* --- Базовая кнопка (btn-primary в их системе) --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 10px 24px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    /* Primary (light neumorphic) */
+    .btn-primary {
+      background: var(--nm-bg);
+      color: var(--nm-text-dark);
+      border-color: var(--nm-bg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover {
+      background: #d0d2e0;
+    }
+
+    .btn-primary:active,
+    .btn-primary.active {
+      box-shadow: var(--shadow-inset);
+      background: var(--nm-bg);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.55;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* Secondary (синий CTA) */
+    .btn-secondary {
+      background: var(--nm-secondary);
+      color: #ECF0F3;
+      border-color: var(--nm-secondary);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
+    }
+
+    .btn-secondary:hover {
+      background: #2640a9;
+      color: #ECF0F3;
+    }
+
+    .btn-secondary:active {
+      box-shadow: var(--shadow-inset);
+    }
+
+    /* Success */
+    .btn-success {
+      background: var(--nm-success);
+      color: #ECF0F3;
+      border-color: var(--nm-success);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
+    }
+
+    .btn-success:hover { background: #114434; color: #ECF0F3; }
+
+    /* Danger */
+    .btn-danger {
+      background: var(--nm-danger);
+      color: #ECF0F3;
+      border-color: var(--nm-danger);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
+    }
+
+    .btn-danger:hover { background: #891824; color: #ECF0F3; }
+
+    /* Warning */
+    .btn-warning {
+      background: var(--nm-warning);
+      color: #ECF0F3;
+      border-color: var(--nm-warning);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
+    }
+
+    .btn-warning:hover { background: #ca9700; color: #ECF0F3; }
+
+    /* Info */
+    .btn-info {
+      background: var(--nm-info);
+      color: #ECF0F3;
+      border-color: var(--nm-info);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
+    }
+
+    .btn-info:hover { background: #00448d; color: #ECF0F3; }
+
+    /* Dark */
+    .btn-dark {
+      background: var(--nm-dark);
+      color: #ECF0F3;
+      border-color: var(--nm-dark);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
+    }
+
+    .btn-dark:hover { background: #222434; color: #ECF0F3; }
+
+    /* Light */
+    .btn-light {
+      background: var(--nm-border);
+      color: var(--nm-text-dark);
+      border-color: var(--nm-border);
+      box-shadow: 0 1px 1px rgba(38,40,51,.075);
+    }
+
+    /* Pill variant */
+    .btn-pill { border-radius: var(--radius-pill) !important; }
+
+    /* Icon button */
+    .btn-icon {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: var(--radius);
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      box-shadow: var(--shadow-soft-sm);
+      color: var(--nm-text-body);
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover { box-shadow: var(--shadow-inset-sm); }
+    .btn-icon.active { box-shadow: var(--shadow-inset); }
+
+    /* Phosphor Icons sizing helpers */
+    ph-icon, i[class^="ph-"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+    }
+    .icon-sm  { font-size: 16px; }
+    .icon-md  { font-size: 20px; }
+    .icon-lg  { font-size: 24px; }
+    .icon-xl  { font-size: 32px; }
+    .icon-2xl { font-size: 40px; }
+    .icon-3xl { font-size: 48px; }
+
+    /* Sizes */
+    .btn-sm { font-size: 13px; padding: 7px 18px; }
+    .btn-lg { font-size: 17px; padding: 14px 32px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       4. ПОЛЯ ВВОДА
+    ═══════════════════════════════════════════════════════════ */
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--nm-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 400;
+      font-family: var(--font-family);
+      color: var(--nm-text-body);
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-inset);
+      outline: none;
+      transition: all 0.3s ease;
+      min-width: 260px;
+    }
+
+    .form-control::placeholder { color: var(--nm-text-body); opacity: 0.6; }
+
+    .form-control:focus {
+      border-color: var(--nm-border);
+      box-shadow: var(--shadow-inset), 0 0 0 2px rgba(45, 76, 200, 0.15);
+    }
+
+    .form-control.is-valid { border-color: var(--nm-success); }
+    .form-control.is-invalid { border-color: var(--nm-danger); }
+
+    .form-control:disabled,
+    .form-control[readonly] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    select.form-control {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%2366799e'%3E%3Cpath d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      cursor: pointer;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .valid-feedback {
+      font-size: 12px;
+      color: var(--nm-success);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .invalid-feedback {
+      font-size: 12px;
+      color: var(--nm-danger);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    /* Input group */
+    .input-group {
+      display: flex;
+      align-items: stretch;
+      min-width: 260px;
+    }
+
+    .input-group .form-control {
+      flex: 1;
+      min-width: 0;
+      border-radius: var(--radius) 0 0 var(--radius);
+    }
+
+    .input-group-append {
+      display: flex;
+    }
+
+    .input-group-text {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--nm-text-muted);
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-left: none;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      box-shadow: var(--shadow-inset);
+      white-space: nowrap;
+      font-family: var(--font-mono);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       5. КАРТОЧКИ
+    ═══════════════════════════════════════════════════════════ */
+    .card {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-soft-lg);
+      transform: translateY(-2px);
+    }
+
+    .card-body { padding: 24px; }
+
+    .card-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--nm-border);
+      background: var(--nm-bg);
+    }
+
+    .card-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--nm-border);
+      background: var(--nm-bg);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--nm-text-dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--nm-text-muted);
+      line-height: 1.6;
+    }
+
+    /* Inset card variant */
+    .card-inset {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-inset);
+    }
+
+    /* Карточка предсказания (pricing-style) */
+    .pred-card {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      width: 280px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .pred-card:hover { box-shadow: var(--shadow-soft-lg); transform: translateY(-4px); }
+
+    .pred-card__price-box {
+      margin: 24px 20px 0;
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-inset);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .pred-card__currency {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: var(--nm-text-muted);
+      font-weight: 400;
+      vertical-align: super;
+    }
+
+    .pred-card__amount {
+      font-family: var(--font-mono);
+      font-size: 60px;
+      font-weight: 700;
+      color: var(--nm-text-dark);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .pred-card__period {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--nm-text-muted);
+    }
+
+    .pred-card__body { padding: 20px; }
+
+    .pred-card__desc {
+      font-size: 13px;
+      color: var(--nm-text-muted);
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    .pred-card__list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+    }
+
+    .pred-card__list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--nm-border);
+      font-size: 13px;
+      color: var(--nm-text-body);
+    }
+
+    .pred-card__list li:last-child { border-bottom: none; }
+
+    .pred-card__list strong {
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--nm-text-muted);
+    }
+
+    .pred-card__list span { color: var(--nm-secondary); font-weight: 600; font-family: var(--font-mono); font-size: 13px; }
+
+    .pred-card__actions { padding-bottom: 20px; text-align: center; }
+
+    /* ═══════════════════════════════════════════════════════════
+       6. ТАБЛИЦА
+    ═══════════════════════════════════════════════════════════ */
+    .table-wrapper {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    table.nm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-family);
+    }
+
+    .nm-table thead tr {
+      background: var(--nm-bg);
+      box-shadow: var(--shadow-inset-sm);
+    }
+
+    .nm-table thead th {
+      padding: 12px 20px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--font-family);
+      color: var(--nm-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      border-bottom: 1px solid var(--nm-border);
+    }
+
+    .nm-table tbody td {
+      padding: 14px 20px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--nm-text-body);
+      border-bottom: 1px solid var(--nm-border);
+    }
+
+    /* Числовые данные в таблице — Space Mono */
+    .nm-table tbody td.data {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    .nm-table tbody tr:last-child td { border-bottom: none; }
+
+    .nm-table tbody tr:hover td {
+      background: var(--nm-bg-white);
+      color: var(--nm-text-dark);
+    }
+
+    /* Badges / статусы */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success {
+      background: rgba(24, 99, 75, 0.12);
+      color: var(--nm-success);
+      border: 1px solid rgba(24, 99, 75, 0.2);
+    }
+
+    .badge-danger {
+      background: rgba(169, 30, 44, 0.1);
+      color: var(--nm-danger);
+      border: 1px solid rgba(169, 30, 44, 0.2);
+    }
+
+    .badge-warning {
+      background: rgba(240, 180, 0, 0.12);
+      color: #a07800;
+      border: 1px solid rgba(240, 180, 0, 0.25);
+    }
+
+    .badge-secondary {
+      background: rgba(45, 76, 200, 0.1);
+      color: var(--nm-secondary);
+      border: 1px solid rgba(45, 76, 200, 0.2);
+    }
+
+    .badge-dark {
+      background: rgba(49, 52, 75, 0.1);
+      color: var(--nm-dark);
+      border: 1px solid rgba(49, 52, 75, 0.2);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       7. МОДАЛЬНОЕ ОКНО
+    ═══════════════════════════════════════════════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(49, 52, 75, 0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft-lg);
+      padding: 36px;
+      max-width: 480px;
+      width: 90%;
+      position: relative;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--nm-text-dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-body {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--nm-text-muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .modal-actions { display: flex; gap: 12px; }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius);
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--nm-text-muted);
+      box-shadow: var(--shadow-soft-sm);
+      transition: all 0.15s;
+    }
+
+    .modal-close-btn:hover { box-shadow: var(--shadow-inset-sm); }
+
+    /* ═══════════════════════════════════════════════════════════
+       8. ALERTS / УВЕДОМЛЕНИЯ
+    ═══════════════════════════════════════════════════════════ */
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Soft shadow variant (convex) */
+    .alert-soft {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      box-shadow: var(--shadow-soft-sm);
+      color: var(--nm-text-body);
+    }
+
+    /* Inset variant */
+    .alert-inset {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      box-shadow: var(--shadow-inset-sm);
+      color: var(--nm-text-body);
+    }
+
+    .alert-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .alert-success .alert-icon { color: var(--nm-success); }
+    .alert-danger  .alert-icon { color: var(--nm-danger);  }
+    .alert-warning .alert-icon { color: #a07800;            }
+    .alert-info    .alert-icon { color: var(--nm-secondary);}
+
+    .alert strong { font-weight: 700; color: var(--nm-text-dark); }
+
+    .alert a { color: var(--nm-secondary); font-weight: 600; }
+
+    /* ═══════════════════════════════════════════════════════════
+       9. ВКЛАДКИ (TABS)
+    ═══════════════════════════════════════════════════════════ */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--nm-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-inset);
+      padding: 6px;
+      width: fit-content;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      font-family: var(--font-family);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--nm-text-muted);
+      background: transparent;
+      border: none;
+      padding: 8px 22px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover { color: var(--nm-text-dark); }
+
+    .tab-btn.active {
+      background: var(--nm-bg);
+      color: var(--nm-secondary);
+      box-shadow: var(--shadow-soft-sm);
+      font-weight: 700;
+    }
+
+    /* Underline tab variant */
+    .tabs-underline {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--nm-border);
+      margin-bottom: 20px;
+    }
+
+    .tab-underline-btn {
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--nm-text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-underline-btn:hover { color: var(--nm-text-dark); }
+
+    .tab-underline-btn.active {
+      color: var(--nm-secondary);
+      border-bottom-color: var(--nm-secondary);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       10. ПРОГРЕСС-БАР
+    ═══════════════════════════════════════════════════════════ */
+    .progress-wrap { width: 100%; max-width: 380px; }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--nm-text-dark);
+      margin-bottom: 8px;
+    }
+
+    .progress {
+      height: 10px;
+      background: var(--nm-bg);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-inset-sm);
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      background: var(--nm-secondary);
+      box-shadow: var(--shadow-soft-sm);
+      transition: width 0.4s ease;
+    }
+
+    .progress-bar.success { background: var(--nm-success); }
+    .progress-bar.danger  { background: var(--nm-danger);  }
+    .progress-bar.warning { background: var(--nm-warning); }
+
+    /* ═══════════════════════════════════════════════════════════
+       11. ПАГИНАЦИЯ
+    ═══════════════════════════════════════════════════════════ */
+    .pagination {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .page-item {
+      min-width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft-sm);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--nm-text-body);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-family);
+    }
+
+    .page-item:hover { box-shadow: var(--shadow-soft); color: var(--nm-secondary); }
+
+    .page-item.active {
+      box-shadow: var(--shadow-inset);
+      color: var(--nm-secondary);
+      font-weight: 800;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       12. ИКОНКИ-АВАТАРЫ / ICON BOXES
+    ═══════════════════════════════════════════════════════════ */
+    .icon-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      transition: all 0.2s;
+      font-size: 20px;
+    }
+
+    .icon-box:hover { box-shadow: var(--shadow-inset); }
+
+    .icon-box-sm  { width: 40px;  height: 40px;  font-size: 16px; }
+    .icon-box-md  { width: 56px;  height: 56px;  font-size: 22px; }
+    .icon-box-lg  { width: 72px;  height: 72px;  font-size: 28px; }
+    .icon-box-xl  { width: 96px;  height: 96px;  font-size: 36px; }
+
+    .icon-box.rounded { border-radius: 50%; }
+
+    /* ═══════════════════════════════════════════════════════════
+       13. ACCORDIONS
+    ═══════════════════════════════════════════════════════════ */
+    .accordion {
+      background: var(--nm-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      max-width: 560px;
+    }
+
+    .accordion-item {
+      background: var(--nm-bg);
+      border-bottom: 1px solid var(--nm-border);
+    }
+
+    .accordion-item:last-child { border-bottom: none; }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--nm-text-dark);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .accordion-header:hover { color: var(--nm-secondary); }
+
+    .accordion-header .acc-icon {
+      font-size: 12px;
+      color: var(--nm-text-muted);
+      transition: transform 0.25s;
+    }
+
+    .accordion-item.open .acc-icon { transform: rotate(45deg); }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-item.open .accordion-body { max-height: 300px; }
+
+    .accordion-body-inner {
+      padding: 0 24px 18px;
+      font-size: 14px;
+      color: var(--nm-text-muted);
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       14. CHECKBOX / RADIO (custom neumorphic)
+    ═══════════════════════════════════════════════════════════ */
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .form-check input[type="checkbox"],
+    .form-check input[type="radio"] { display: none; }
+
+    .check-box {
+      width: 20px;
+      height: 20px;
+      border-radius: var(--radius);
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      box-shadow: var(--shadow-inset-sm);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-size: 12px;
+      color: transparent;
+    }
+
+    .form-check input:checked + .check-box {
+      background: var(--nm-secondary);
+      border-color: var(--nm-secondary);
+      box-shadow: 2px 2px 4px rgba(45,76,200,0.3), -1px -1px 3px rgba(255,255,255,0.5);
+      color: #fff;
+    }
+
+    .radio-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      box-shadow: var(--shadow-inset-sm);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .radio-box::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: transparent;
+      transition: background 0.2s;
+    }
+
+    .form-check input:checked + .radio-box {
+      box-shadow: var(--shadow-soft-sm);
+    }
+
+    .form-check input:checked + .radio-box::after {
+      background: var(--nm-secondary);
+    }
+
+    .check-label {
+      font-size: 14px;
+      color: var(--nm-text-body);
+      font-weight: 400;
+    }
+
+    /* Toggle switch */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .toggle {
+      width: 46px;
+      height: 24px;
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-inset-sm);
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: var(--nm-bg);
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      box-shadow: var(--shadow-soft-sm);
+      transition: left 0.3s, background 0.3s;
+    }
+
+    .toggle.on {
+      background: rgba(45, 76, 200, 0.15);
+    }
+
+    .toggle.on::after {
+      left: 24px;
+      background: var(--nm-secondary);
+      box-shadow: 2px 2px 5px rgba(45, 76, 200, 0.4), -1px -1px 3px rgba(255,255,255,0.5);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    .kit-footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--nm-text-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--nm-border);
+      margin-top: 80px;
+      background: var(--nm-bg);
+      box-shadow: 0 -4px 12px rgba(184, 185, 190, 0.3);
+    }
+
+    /* ─── Утилиты ─────────────────────────────────────────────── */
+    .nm-card-plain {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 24px;
+    }
+
+    .nm-inset {
+      background: var(--nm-bg);
+      border: 1px solid var(--nm-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-inset);
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ───────────── ШАПКА ───────────── -->
+  <header class="kit-header">
+    <div class="kit-logo">AI Predict <span>Arena</span></div>
+    <span class="kit-badge">UI Kit · Light Neumorphism</span>
+  </header>
+
+  <!-- ───────────── НАВИГАЦИЯ ───────────── -->
+  <nav class="kit-nav" aria-label="UI Kit навигация">
+    <a href="#colors">Цвета</a>
+    <a href="#typography">Типографика</a>
+    <a href="#buttons">Кнопки</a>
+    <a href="#forms">Формы</a>
+    <a href="#selects">Select</a>
+    <a href="#cards">Карточки</a>
+    <a href="#tables">Таблица</a>
+    <a href="#modals">Модальные</a>
+    <a href="#alerts">Уведомления</a>
+    <a href="#tabs">Вкладки</a>
+    <a href="#progress">Прогресс</a>
+    <a href="#pagination">Пагинация</a>
+    <a href="#icons">Иконки</a>
+    <a href="#accordion">Аккордеон</a>
+    <a href="#controls">Чекбоксы</a>
+    <a href="#shadows">Тени</a>
+  </nav>
+
+  <div class="kit-container">
+
+    <!-- ═══════ 1. ЦВЕТОВАЯ ПАЛИТРА ═══════ -->
+    <section class="kit-section" id="colors">
+      <h2 class="section-title">1 — Цветовая палитра</h2>
+      <p class="section-desc">Источник: <code>Themesberg Neumorphism UI Pro → neumorphism.css :root</code> + AIPA акценты</p>
+
+      <div class="palette-grid">
+        <!-- Нейтральные -->
+        <div class="swatch">
+          <div class="swatch__color" style="background:#e6e7ee"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">BG / Surface</div>
+            <div class="swatch__hex">#e6e7ee</div>
+            <div class="swatch__var">--nm-bg / --primary</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#ECF0F3"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Light White</div>
+            <div class="swatch__hex">#ECF0F3</div>
+            <div class="swatch__var">--nm-bg-light / --white</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#fafbfe"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Near White</div>
+            <div class="swatch__hex">#fafbfe</div>
+            <div class="swatch__var">--gray-200</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#D1D9E6"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Border / Light</div>
+            <div class="swatch__hex">#D1D9E6</div>
+            <div class="swatch__var">--nm-border / --light</div>
+          </div>
+        </div>
+        <!-- Тени (отображаем оттенки) -->
+        <div class="swatch">
+          <div class="swatch__color" style="background:#b8b9be"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Shadow Dark</div>
+            <div class="swatch__hex">#b8b9be</div>
+            <div class="swatch__var">тень — тёмная часть</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#ffffff;border:1px solid #e6e7ee"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Shadow Light</div>
+            <div class="swatch__hex">#ffffff</div>
+            <div class="swatch__var">тень — светлая часть</div>
+          </div>
+        </div>
+        <!-- Текст -->
+        <div class="swatch">
+          <div class="swatch__color" style="background:#31344b"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Text Dark</div>
+            <div class="swatch__hex">#31344b</div>
+            <div class="swatch__var">--nm-text-dark / --dark</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#44476a"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Text Body</div>
+            <div class="swatch__hex">#44476a</div>
+            <div class="swatch__var">--nm-text-body / --gray</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#66799e"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Text Muted</div>
+            <div class="swatch__hex">#66799e</div>
+            <div class="swatch__var">--nm-text-muted / --gray-700</div>
+          </div>
+        </div>
+        <!-- Акценты -->
+        <div class="swatch">
+          <div class="swatch__color" style="background:#2D4CC8"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Secondary / CTA</div>
+            <div class="swatch__hex">#2D4CC8</div>
+            <div class="swatch__var">--nm-secondary / --secondary</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#18634B"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Success</div>
+            <div class="swatch__hex">#18634B</div>
+            <div class="swatch__var">--nm-success / --success</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#A91E2C"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Danger</div>
+            <div class="swatch__hex">#A91E2C</div>
+            <div class="swatch__var">--nm-danger / --danger</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#F0B400"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Warning</div>
+            <div class="swatch__hex">#F0B400</div>
+            <div class="swatch__var">--nm-warning / --warning</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#0056B3"></div>
+          <div class="swatch__info">
+            <div class="swatch__name">Info</div>
+            <div class="swatch__hex">#0056B3</div>
+            <div class="swatch__var">--nm-info / --info</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 2. ТИПОГРАФИКА ═══════ -->
+    <section class="kit-section" id="typography">
+      <h2 class="section-title">2 — Типографика</h2>
+      <p class="section-desc">Шрифт — <strong>Space Grotesk</strong> 300/400/500/600/700 (UI) · <strong>Space Mono</strong> 400/700 (данные/цифры) · letter-spacing: -0.01em</p>
+
+      <div class="type-showcase">
+        <div class="type-row">
+          <div class="type-meta">Display/H1 · 52px · 700 · ls -0.03em</div>
+          <div class="type-h1">Predict the Future</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">H2 · 38px · 600 · ls -0.02em</div>
+          <div class="type-h2">AI Predict Arena</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">H3 · 26px · 600 · ls -0.01em</div>
+          <div class="type-h3">Активные события</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">H4 · 20px · 600</div>
+          <div class="type-h4">Карточка прогноза</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Body · 15px · 400 · Space Grotesk</div>
+          <div class="type-body">Делайте прогнозы на результаты мировых событий и получайте вознаграждение за точность.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Small · 13px · 400 · muted</div>
+          <div class="type-sm">Вторичный текст, подписи, описания компонентов</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Caption · 11px · 500 · UPPER · gray</div>
+          <div class="type-xs">Метки таблицы, подсказки, fine print</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Label · 13px · 600 · UPPER · dark</div>
+          <div class="type-label">Сумма ставки (USDT)</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Link · 15px · 500 · secondary</div>
+          <div class="type-link">Посмотреть все события</div>
+        </div>
+        <!-- Space Mono — для данных / цифр -->
+        <div class="type-row">
+          <div class="type-meta">Space Mono · 16px · 400 · для данных</div>
+          <div class="type-mono">1.85 × $50.00 = $92.50 — BTC/USD</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Space Mono · 12px · 400 · muted</div>
+          <div class="type-mono-sm">EVT-20260603-BTCUSD · POOL: $12,450.00 · WIN: 68%</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 3. КНОПКИ ═══════ -->
+    <section class="kit-section" id="buttons">
+      <h2 class="section-title">3 — Кнопки</h2>
+      <p class="section-desc">Источник: <code>.btn, .btn-primary → shadow-soft | :active → shadow-inset</code></p>
+
+      <!-- Строка 1: Основные цвета -->
+      <div class="component-group" style="margin-bottom:24px">
+        <div class="component-item">
+          <button class="btn btn-primary">Default</button>
+          <div class="component-label">.btn.btn-primary — shadow-soft, bg #e6e7ee</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-secondary">Сделать ставку</button>
+          <div class="component-label">.btn.btn-secondary — синий #2D4CC8</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-success">▲ UP</button>
+          <div class="component-label">.btn.btn-success — #18634B</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-danger">▼ DOWN</button>
+          <div class="component-label">.btn.btn-danger — #A91E2C</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-warning">Pending</button>
+          <div class="component-label">.btn.btn-warning — #F0B400</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-info">Info</button>
+          <div class="component-label">.btn.btn-info — #0056B3</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-dark">Dark</button>
+          <div class="component-label">.btn.btn-dark — #31344b</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-light">Light</button>
+          <div class="component-label">.btn.btn-light — #D1D9E6</div>
+        </div>
+      </div>
+
+      <!-- Строка 2: Вариации -->
+      <div class="component-group" style="margin-bottom:24px">
+        <div class="component-item">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <div class="component-label">.btn-sm — padding 7px 18px, font 13px</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-secondary">Regular</button>
+          <div class="component-label">.btn — padding 10px 24px, font 15px</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-secondary btn-lg">Large</button>
+          <div class="component-label">.btn-lg — padding 14px 32px, font 17px</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-secondary btn-pill">Pill Button</button>
+          <div class="component-label">.btn-pill — border-radius: 50rem</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-primary active">Active state</button>
+          <div class="component-label">.btn-primary.active — shadow-inset (вдавлен)</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-secondary" disabled>Disabled</button>
+          <div class="component-label">:disabled — opacity 0.55, box-shadow: none</div>
+        </div>
+      </div>
+
+      <!-- Строка 3: Иконки -->
+      <div class="component-group">
+        <div class="component-item">
+          <button class="btn-icon" aria-label="Уведомления">
+            <i class="ph-light ph-bell icon-md"></i>
+          </button>
+          <div class="component-label">.btn-icon — 44×44px, shadow-soft-sm<br>ph-bell (уведомления)</div>
+        </div>
+        <div class="component-item">
+          <button class="btn-icon active" aria-label="Настройки">
+            <i class="ph-light ph-gear icon-md"></i>
+          </button>
+          <div class="component-label">.btn-icon.active — shadow-inset<br>ph-gear (настройки)</div>
+        </div>
+        <div class="component-item">
+          <button class="btn-icon" aria-label="Поиск">
+            <i class="ph-light ph-magnifying-glass icon-md"></i>
+          </button>
+          <div class="component-label">ph-magnifying-glass (поиск)</div>
+        </div>
+        <div class="component-item">
+          <button class="btn-icon" aria-label="Закрыть">
+            <i class="ph-light ph-x icon-md"></i>
+          </button>
+          <div class="component-label">ph-x (закрыть)</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-secondary btn-sm">
+            <i class="ph-light ph-chart-line-up icon-md"></i>
+            Сделать прогноз
+          </button>
+          <div class="component-label">btn + ph-chart-line-up (прогноз)</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-success btn-sm">
+            <i class="ph-light ph-trend-up icon-md"></i>
+            UP
+          </button>
+          <div class="component-label">btn-success + ph-trend-up</div>
+        </div>
+        <div class="component-item">
+          <button class="btn btn-danger btn-sm">
+            <i class="ph-light ph-trend-down icon-md"></i>
+            DOWN
+          </button>
+          <div class="component-label">btn-danger + ph-trend-down</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 4. ФОРМЫ ═══════ -->
+    <section class="kit-section" id="forms">
+      <h2 class="section-title">4 — Поля ввода (Forms)</h2>
+      <p class="section-desc">Источник: <code>.form-control → box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff</code></p>
+
+      <div class="component-group">
+        <!-- Обычный input -->
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">Сумма ставки</label>
+            <input class="form-control" type="number" placeholder="100.00" id="stake-input" />
+          </div>
+          <div class="component-label">.form-control — shadow-inset, bg: #e6e7ee</div>
+        </div>
+
+        <!-- Valid -->
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">Логин</label>
+            <input class="form-control is-valid" type="text" value="predict_user" />
+            <div class="valid-feedback"><i class="ph-light ph-check-circle icon-sm"></i> Логин доступен</div>
+          </div>
+          <div class="component-label">.form-control.is-valid — border: #18634B</div>
+        </div>
+
+        <!-- Invalid -->
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-control is-invalid" type="email" value="not_an_email" />
+            <div class="invalid-feedback"><i class="ph-light ph-warning-circle icon-sm"></i> Неверный формат email</div>
+          </div>
+          <div class="component-label">.form-control.is-invalid — border: #A91E2C</div>
+        </div>
+
+        <!-- Disabled -->
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">ID события (readonly)</label>
+            <input class="form-control" type="text" value="EVT-20260603-BTC" readonly />
+          </div>
+          <div class="component-label">.form-control[readonly] — opacity 0.6</div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">Комментарий к прогнозу</label>
+            <textarea class="form-control" placeholder="Аргументируйте ваш прогноз..." style="min-width:280px"></textarea>
+          </div>
+          <div class="component-label">textarea.form-control — resize: vertical</div>
+        </div>
+
+        <!-- Input group -->
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">Размер ставки</label>
+            <div class="input-group">
+              <input class="form-control" type="number" placeholder="50.00" id="group-input" />
+              <div class="input-group-append">
+                <span class="input-group-text">USDT</span>
+              </div>
+            </div>
+          </div>
+          <div class="component-label">.input-group + .input-group-text</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 5. SELECT ═══════ -->
+    <section class="kit-section" id="selects">
+      <h2 class="section-title">5 — Select / Dropdown</h2>
+
+      <div class="component-group">
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">Категория</label>
+            <select class="form-control">
+              <option>Все категории</option>
+              <option>Крипто</option>
+              <option>Акции</option>
+              <option>Форекс</option>
+              <option>Спорт</option>
+            </select>
+          </div>
+          <div class="component-label">select.form-control — shadow-inset, custom arrow</div>
+        </div>
+
+        <div class="component-item">
+          <div class="form-group">
+            <label class="form-label">Период</label>
+            <select class="form-control">
+              <option>1 час</option>
+              <option>4 часа</option>
+              <option selected>24 часа</option>
+              <option>7 дней</option>
+            </select>
+          </div>
+          <div class="component-label">select.form-control — activated option</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 6. КАРТОЧКИ ═══════ -->
+    <section class="kit-section" id="cards">
+      <h2 class="section-title">6 — Карточки предсказаний</h2>
+      <p class="section-desc">Источник: <code>.card.shadow-soft</code> + <code>.card.shadow-inset</code> — скопировано с pricing-карточек Themesberg</p>
+
+      <div class="component-group">
+
+        <!-- Pricing-style карточка (как на скриншоте) -->
+        <div class="component-item">
+          <div class="pred-card">
+            <div class="pred-card__price-box">
+              <span class="pred-card__currency">×</span>
+              <span class="pred-card__amount">1.85</span>
+              <span class="pred-card__period">коэф. ДА</span>
+            </div>
+            <div class="pred-card__body">
+              <p class="pred-card__desc">BTC/USDT вырастет выше $72,000 до конца торговой сессии?</p>
+              <ul class="pred-card__list">
+                <li><strong>Категория</strong> <span>Крипто</span></li>
+                <li><strong>Период</strong> 4 часа</li>
+                <li><strong>Пул ставок</strong> $12,450</li>
+                <li><strong>Участников</strong> 284</li>
+                <li><strong>Статус</strong> <span class="badge badge-secondary">Live</span></li>
+              </ul>
+              <div class="pred-card__actions">
+                <button class="btn btn-secondary btn-sm btn-pill" style="width:100%">
+                  <i class="ph-light ph-chart-line-up icon-md"></i> Сделать прогноз
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="component-label">Prediction card — pricing-style, как на скриншоте</div>
+        </div>
+
+        <!-- Второй вариант -->
+        <div class="component-item">
+          <div class="pred-card">
+            <div class="pred-card__price-box">
+              <span class="pred-card__currency">×</span>
+              <span class="pred-card__amount">3.12</span>
+              <span class="pred-card__period">коэф. НЕТ</span>
+            </div>
+            <div class="pred-card__body">
+              <p class="pred-card__desc">S&amp;P 500 закроется выше 5,200 пунктов в пятницу?</p>
+              <ul class="pred-card__list">
+                <li><strong>Категория</strong> <span>Акции</span></li>
+                <li><strong>Период</strong> 24 часа</li>
+                <li><strong>Пул ставок</strong> $8,900</li>
+                <li><strong>Участников</strong> 156</li>
+                <li><strong>Статус</strong> <span class="badge badge-warning">Скоро</span></li>
+              </ul>
+              <div class="pred-card__actions">
+                <button class="btn btn-secondary btn-sm btn-pill" style="width:100%">
+                  <i class="ph-light ph-chart-line-up icon-md"></i> Сделать прогноз
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="component-label">Prediction card — вариант 2</div>
+        </div>
+
+        <!-- Завершённая карточка -->
+        <div class="component-item">
+          <div class="pred-card" style="opacity:0.75">
+            <div class="pred-card__price-box" style="box-shadow: var(--shadow-inset)">
+              <span class="pred-card__currency">×</span>
+              <span class="pred-card__amount">1.47</span>
+              <span class="pred-card__period" style="color:var(--nm-success)">✓ ПОБЕДА</span>
+            </div>
+            <div class="pred-card__body">
+              <p class="pred-card__desc">Золото (XAU/USD) выше $2,400 в течение 4 часов</p>
+              <ul class="pred-card__list">
+                <li><strong>Ваша ставка</strong> $50.00</li>
+                <li><strong>Выплата</strong> <span style="color:var(--nm-success)">$73.50</span></li>
+                <li><strong>Прибыль</strong> <span style="color:var(--nm-success)">+$23.50</span></li>
+                <li><strong>Статус</strong> <span class="badge badge-success">Победа</span></li>
+              </ul>
+              <div class="pred-card__actions">
+                <button class="btn btn-primary btn-sm btn-pill" style="width:100%;box-shadow:var(--shadow-inset)" disabled>
+                  <i class="ph-light ph-check-circle icon-md"></i> Завершено
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="component-label">Завершённая карточка — .card-inset</div>
+        </div>
+
+        <!-- Обычная info-карточка -->
+        <div class="component-item">
+          <div class="card" style="max-width:280px">
+            <div class="card-header">
+              <h3 class="card-title" style="font-size:14px;margin:0">Статистика аккаунта</h3>
+            </div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--nm-text-muted)">Баланс</span>
+                <strong style="color:var(--nm-text-dark)">$1,250.00</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--nm-text-muted)">Прибыль</span>
+                <strong style="color:var(--nm-success)">+$342.50</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--nm-text-muted)">Ставок всего</span>
+                <strong style="color:var(--nm-text-dark)">47</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--nm-text-muted)">Процент побед</span>
+                <strong style="color:var(--nm-secondary)">68%</strong>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-secondary btn-sm" style="width:100%">
+                <i class="ph-light ph-currency-dollar icon-md"></i> Пополнить баланс
+              </button>
+            </div>
+          </div>
+          <div class="component-label">.card — shadow-soft, border, radius 1rem</div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 7. ТАБЛИЦА ═══════ -->
+    <section class="kit-section" id="tables">
+      <h2 class="section-title">7 — Таблица</h2>
+
+      <div class="table-wrapper">
+        <table class="nm-table" id="predictions-table">
+          <thead>
+            <tr>
+              <th>Событие</th>
+              <th>Категория</th>
+              <th>Ставка</th>
+              <th>Коэф.</th>
+              <th>Выплата</th>
+              <th>Дата</th>
+              <th>Статус</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BTC/USDT > $72K</td>
+              <td>Крипто</td>
+              <td>$50.00</td>
+              <td>×1.85</td>
+              <td>$92.50</td>
+              <td>03.06.2026</td>
+              <td><span class="badge badge-success">Победа</span></td>
+            </tr>
+            <tr>
+              <td>S&P 500 > 5200</td>
+              <td>Акции</td>
+              <td>$30.00</td>
+              <td>×3.12</td>
+              <td>—</td>
+              <td>02.06.2026</td>
+              <td><span class="badge badge-danger">Проигрыш</span></td>
+            </tr>
+            <tr>
+              <td>EUR/USD > 1.08</td>
+              <td>Форекс</td>
+              <td>$100.00</td>
+              <td>×1.72</td>
+              <td>$172.00</td>
+              <td>04.06.2026</td>
+              <td><span class="badge badge-warning">Ожидание</span></td>
+            </tr>
+            <tr>
+              <td>ETH/USDT > $3,500</td>
+              <td>Крипто</td>
+              <td>$75.00</td>
+              <td>×2.10</td>
+              <td>$157.50</td>
+              <td>01.06.2026</td>
+              <td><span class="badge badge-success">Победа</span></td>
+            </tr>
+            <tr>
+              <td>Gold > $2,400</td>
+              <td>Металлы</td>
+              <td>$200.00</td>
+              <td>×1.47</td>
+              <td>—</td>
+              <td>04.06.2026</td>
+              <td><span class="badge badge-secondary">Live</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="component-label" style="margin-top:10px">.nm-table — th 12px 800 upper muted, tbody border: #D1D9E6, hover: bg-white</div>
+
+      <!-- Пагинация -->
+      <div style="display:flex;justify-content:flex-end;margin-top:20px">
+        <div class="pagination" role="navigation" aria-label="Пагинация">
+          <div class="page-item" aria-label="Предыдущая">‹</div>
+          <div class="page-item">1</div>
+          <div class="page-item active" aria-current="page">2</div>
+          <div class="page-item">3</div>
+          <div class="page-item">…</div>
+          <div class="page-item">12</div>
+          <div class="page-item" aria-label="Следующая">›</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 8. МОДАЛЬНЫЕ ОКНА ═══════ -->
+    <section class="kit-section" id="modals">
+      <h2 class="section-title">8 — Модальные окна</h2>
+
+      <div class="component-group">
+        <div class="component-item">
+          <button class="btn btn-secondary" onclick="document.getElementById('modal1').classList.add('open')" id="btn-modal1">
+            Открыть модальное окно
+          </button>
+          <div class="component-label">.modal-box — shadow-soft-lg, radius 1.5rem, blur backdrop</div>
+        </div>
+      </div>
+
+      <!-- Статичный превью -->
+      <div style="margin-top:24px">
+        <div class="modal-box" style="position:static;max-width:460px">
+          <button class="modal-close-btn" disabled>✕</button>
+          <div class="modal-title">Подтверждение ставки</div>
+          <div class="modal-body">
+            Вы собираетесь поставить <strong>$50.00</strong> на исход «BTC/USDT вырастет выше $72,000». Коэффициент <strong>×1.85</strong>. Потенциальный выигрыш: <strong>$92.50</strong>.
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-primary" style="flex:1">
+              <i class="ph-light ph-x icon-md"></i> Отмена
+            </button>
+            <button class="btn btn-success" style="flex:1">
+              <i class="ph-light ph-check icon-md"></i> Подтвердить
+            </button>
+          </div>
+        </div>
+        <div class="component-label" style="margin-top:8px">Превью модалки (без overlay)</div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 9. ALERTS ═══════ -->
+    <section class="kit-section" id="alerts">
+      <h2 class="section-title">9 — Уведомления / Alerts</h2>
+      <p class="section-desc">Источник: <code>.alert.shadow-soft</code> (convex) и <code>.alert.shadow-inset</code> (concave)</p>
+
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:600px">
+
+        <div class="alert alert-soft alert-success" role="alert">
+          <div class="alert-icon"><i class="ph-light ph-check-circle icon-lg"></i></div>
+          <div>
+            <strong>Победа!</strong> Ваш прогноз «BTC > $72K» подтверждён. Выплата $92.50 начислена.
+            <a href="#"> Подробнее</a>
+          </div>
+        </div>
+        <div class="component-label">.alert.alert-soft.alert-success — ph-check-circle</div>
+
+        <div class="alert alert-soft alert-danger" role="alert">
+          <div class="alert-icon"><i class="ph-light ph-x-circle icon-lg"></i></div>
+          <div>
+            <strong>Ошибка!</strong> Недостаточно средств на балансе для совершения ставки.
+          </div>
+        </div>
+        <div class="component-label">.alert.alert-soft.alert-danger — ph-x-circle</div>
+
+        <div class="alert alert-soft alert-warning" role="alert">
+          <div class="alert-icon"><i class="ph-light ph-warning icon-lg"></i></div>
+          <div>
+            <strong>Внимание!</strong> До закрытия приёма ставок осталось <strong>3 минуты</strong>.
+          </div>
+        </div>
+        <div class="component-label">.alert.alert-soft.alert-warning — ph-warning</div>
+
+        <div class="alert alert-inset alert-info" role="alert">
+          <div class="alert-icon"><i class="ph-light ph-bell icon-lg"></i></div>
+          <div>
+            <strong>Информация.</strong> Новое событие добавлено: EUR/USD > 1.09 (период 4 ч). <a href="#">Открыть</a>
+          </div>
+        </div>
+        <div class="component-label">.alert.alert-inset.alert-info — ph-bell</div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 10. ВКЛАДКИ ═══════ -->
+    <section class="kit-section" id="tabs">
+      <h2 class="section-title">10 — Вкладки (Tabs)</h2>
+
+      <!-- Pill tabs (shadow-inset контейнер + shadow-soft активная) -->
+      <div class="component-item" style="margin-bottom:24px">
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" role="tab" onclick="switchPillTab(this)">Все события</button>
+          <button class="tab-btn" role="tab" onclick="switchPillTab(this)">Спорт</button>
+          <button class="tab-btn" role="tab" onclick="switchPillTab(this)">Финансы</button>
+          <button class="tab-btn" role="tab" onclick="switchPillTab(this)">Крипто</button>
+        </div>
+        <div class="nm-inset" style="max-width:500px">
+          <p style="font-size:14px;color:var(--nm-text-muted);margin:0">Контент активной вкладки. Стиль «pill tabs» — контейнер shadow-inset, активная кнопка shadow-soft.</p>
+        </div>
+        <div class="component-label">.tabs → container shadow-inset, .tab-btn.active → shadow-soft-sm</div>
+      </div>
+
+      <!-- Underline tabs -->
+      <div class="component-item">
+        <div class="tabs-underline" role="tablist">
+          <button class="tab-underline-btn active" role="tab" onclick="switchUnderlineTab(this)">Активные</button>
+          <button class="tab-underline-btn" role="tab" onclick="switchUnderlineTab(this)">Завершённые</button>
+          <button class="tab-underline-btn" role="tab" onclick="switchUnderlineTab(this)">Мои ставки</button>
+        </div>
+        <div class="component-label">.tabs-underline — border-bottom: 2px var(--nm-secondary)</div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 11. ПРОГРЕСС ═══════ -->
+    <section class="kit-section" id="progress">
+      <h2 class="section-title">11 — Прогресс-бары</h2>
+
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Ставки ДА</span><span>68%</span></div>
+          <div class="progress"><div class="progress-bar" style="width:68%"></div></div>
+          <div class="component-label">.progress → shadow-inset | .progress-bar — secondary #2D4CC8</div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Процент побед</span><span>72%</span></div>
+          <div class="progress" style="height:14px"><div class="progress-bar success" style="width:72%"></div></div>
+          <div class="component-label">.progress-bar.success — #18634B, height: 14px</div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Заполнение пула</span><span>45%</span></div>
+          <div class="progress"><div class="progress-bar warning" style="width:45%"></div></div>
+          <div class="component-label">.progress-bar.warning — #F0B400</div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Ставки НЕТ</span><span>32%</span></div>
+          <div class="progress"><div class="progress-bar danger" style="width:32%"></div></div>
+          <div class="component-label">.progress-bar.danger — #A91E2C</div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 12. ПАГИНАЦИЯ ═══════ -->
+    <section class="kit-section" id="pagination">
+      <h2 class="section-title">12 — Пагинация</h2>
+
+      <div class="pagination" role="navigation">
+        <div class="page-item">‹‹</div>
+        <div class="page-item">‹</div>
+        <div class="page-item">1</div>
+        <div class="page-item">2</div>
+        <div class="page-item active">3</div>
+        <div class="page-item">4</div>
+        <div class="page-item">5</div>
+        <div class="page-item">›</div>
+        <div class="page-item">››</div>
+      </div>
+      <div class="component-label" style="margin-top:12px">.page-item — shadow-soft-sm | .active — shadow-inset, color secondary</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 13. ИКОНКИ / ICON BOXES ═══════ -->
+    <section class="kit-section" id="icons">
+      <h2 class="section-title">13 — Icon Boxes</h2>
+
+      <div class="component-group">
+        <div class="component-item">
+          <div class="icon-box icon-box-sm" title="ph-chart-bar">
+            <i class="ph-light ph-chart-bar icon-sm"></i>
+          </div>
+          <div class="component-label">.icon-box-sm 40×40<br>ph-chart-bar</div>
+        </div>
+        <div class="component-item">
+          <div class="icon-box icon-box-md" title="ph-target">
+            <i class="ph-light ph-target icon-md"></i>
+          </div>
+          <div class="component-label">.icon-box-md 56×56<br>ph-target</div>
+        </div>
+        <div class="component-item">
+          <div class="icon-box icon-box-lg" title="ph-trophy">
+            <i class="ph-light ph-trophy icon-lg"></i>
+          </div>
+          <div class="component-label">.icon-box-lg 72×72<br>ph-trophy</div>
+        </div>
+        <div class="component-item">
+          <div class="icon-box icon-box-xl" title="ph-currency-dollar">
+            <i class="ph-light ph-currency-dollar icon-xl"></i>
+          </div>
+          <div class="component-label">.icon-box-xl 96×96<br>ph-currency-dollar</div>
+        </div>
+        <div class="component-item">
+          <div class="icon-box icon-box-lg rounded" title="ph-lightning">
+            <i class="ph-light ph-lightning icon-lg"></i>
+          </div>
+          <div class="component-label">.icon-box.rounded — radius 50%<br>ph-lightning</div>
+        </div>
+        <div class="component-item">
+          <div class="icon-box icon-box-md" style="background:var(--nm-secondary);color:#fff;box-shadow:4px 4px 8px rgba(45,76,200,0.3),-2px -2px 6px rgba(255,255,255,0.5)" title="ph-trend-up">
+            <i class="ph-light ph-trend-up icon-md"></i>
+          </div>
+          <div class="component-label">icon-box colored secondary<br>ph-trend-up</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 14. АККОРДЕОН ═══════ -->
+    <section class="kit-section" id="accordion">
+      <h2 class="section-title">14 — Аккордеон</h2>
+
+      <div class="accordion" role="list">
+        <div class="accordion-item open" role="listitem">
+          <div class="accordion-header" onclick="toggleAcc(this)" role="button" tabindex="0">
+            <span>Как работают прогнозы?</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              Выберите событие, выберите исход («ДА» или «НЕТ»), укажите размер ставки. После завершения события система автоматически начислит выплату по коэффициенту.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item" role="listitem">
+          <div class="accordion-header" onclick="toggleAcc(this)" role="button" tabindex="0">
+            <span>Как рассчитываются коэффициенты?</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              Коэффициенты формируются динамически на основе объёма ставок на каждый исход. Чем меньше ставок на исход — тем выше коэффициент.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item" role="listitem">
+          <div class="accordion-header" onclick="toggleAcc(this)" role="button" tabindex="0">
+            <span>Какая минимальная ставка?</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              Минимальная ставка — $1 USDT. Максимальная ставка ограничена 10% от текущего пула события.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="component-label" style="margin-top:12px">.accordion — shadow-soft | .accordion-item.open → max-height animation</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 15. ЧЕКБОКСЫ / РАДИО / ТОГГЛЫ ═══════ -->
+    <section class="kit-section" id="controls">
+      <h2 class="section-title">15 — Чекбоксы, Radio, Toggles</h2>
+
+      <div class="component-group">
+
+        <div class="component-item">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <label class="form-check">
+              <input type="checkbox" checked id="chk1" onchange="syncCheck(this,'chk1-box')"/>
+              <div class="check-box" id="chk1-box">✓</div>
+              <span class="check-label">Уведомлять о результатах</span>
+            </label>
+            <label class="form-check">
+              <input type="checkbox" id="chk2" onchange="syncCheck(this,'chk2-box')"/>
+              <div class="check-box" id="chk2-box" style="color:transparent">✓</div>
+              <span class="check-label">Автоматически реинвестировать</span>
+            </label>
+            <label class="form-check">
+              <input type="checkbox" id="chk3" onchange="syncCheck(this,'chk3-box')" disabled/>
+              <div class="check-box" id="chk3-box" style="color:transparent;opacity:0.5">✓</div>
+              <span class="check-label" style="opacity:0.5">Disabled опция</span>
+            </label>
+          </div>
+          <div class="component-label">Checkbox — shadow-inset пустой, secondary + shadow filled</div>
+        </div>
+
+        <div class="component-item">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <label class="form-check">
+              <input type="radio" name="outcome" id="radio1" onchange="syncRadio('radio-group')"/>
+              <div class="radio-box" id="radio-group-1"></div>
+              <span class="check-label">Исход: ДА</span>
+            </label>
+            <label class="form-check">
+              <input type="radio" name="outcome" id="radio2" onchange="syncRadio('radio-group')"/>
+              <div class="radio-box" id="radio-group-2"></div>
+              <span class="check-label">Исход: НЕТ</span>
+            </label>
+          </div>
+          <div class="component-label">Radio — round check-box, inner dot = secondary</div>
+        </div>
+
+        <div class="component-item">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+              <div class="toggle on"></div>
+              <span class="check-label">Уведомления включены</span>
+            </div>
+            <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+              <div class="toggle"></div>
+              <span class="check-label">Тёмный режим</span>
+            </div>
+          </div>
+          <div class="component-label">Toggle switch — shadow-inset track, shadow-soft-sm thumb, .on → secondary</div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════ 16. ТЕНИ — СПРАВОЧНИК ═══════ -->
+    <section class="kit-section" id="shadows">
+      <h2 class="section-title">16 — Система теней (справочник)</h2>
+      <p class="section-desc">Все тени строятся на двух константах: <code>#b8b9be</code> (тёмная сторона) и <code>#ffffff</code> (светлая сторона)</p>
+
+      <div class="component-group">
+
+        <div class="component-item">
+          <div style="width:140px;height:80px;background:var(--nm-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--nm-text-muted)">shadow-soft</div>
+          <div class="component-label">6px 6px 12px #b8b9be,<br>-6px -6px 12px #fff</div>
+        </div>
+
+        <div class="component-item">
+          <div style="width:140px;height:80px;background:var(--nm-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft-sm);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--nm-text-muted)">shadow-soft-sm</div>
+          <div class="component-label">3px 3px 6px #b8b9be,<br>-3px -3px 6px #fff</div>
+        </div>
+
+        <div class="component-item">
+          <div style="width:140px;height:80px;background:var(--nm-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft-lg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--nm-text-muted)">shadow-soft-lg</div>
+          <div class="component-label">10px 10px 20px #b8b9be,<br>-10px -10px 20px #fff</div>
+        </div>
+
+        <div class="component-item">
+          <div style="width:140px;height:80px;background:var(--nm-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-inset);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--nm-text-muted)">shadow-inset</div>
+          <div class="component-label">inset 2px 2px 5px #b8b9be,<br>inset -3px -3px 7px #fff</div>
+        </div>
+
+        <div class="component-item">
+          <div style="width:140px;height:80px;background:var(--nm-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-inset-sm);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--nm-text-muted)">shadow-inset-sm</div>
+          <div class="component-label">inset 1px 1px 3px #b8b9be,<br>inset -2px -2px 5px #fff</div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /container -->
+
+  <!-- ════ АКТИВНОЕ МОДАЛЬНОЕ ОКНО ════ -->
+  <div class="modal-overlay" id="modal1" role="dialog" aria-modal="true" aria-labelledby="modal1-title"
+       onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="document.getElementById('modal1').classList.remove('open')" aria-label="Закрыть">✕</button>
+      <div class="modal-title" id="modal1-title">🎯 Сделать прогноз</div>
+      <div class="modal-body">
+        Выберите размер ставки на исход <strong>«BTC/USDT > $72,000»</strong>.<br>
+        Коэффициент ×1.85 · Выплата при победе: <strong id="modal-payout">$92.50</strong>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Сумма ставки (USDT)</label>
+        <div class="input-group">
+          <input class="form-control" type="number" value="50" id="modal-stake-amount"
+                 oninput="document.getElementById('modal-payout').textContent='$'+(this.value*1.85).toFixed(2)" />
+          <div class="input-group-append">
+            <span class="input-group-text">USDT</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" style="flex:1" onclick="document.getElementById('modal1').classList.remove('open')">
+          <i class="ph-light ph-x icon-md"></i> Отмена
+        </button>
+        <button class="btn btn-success" style="flex:1" onclick="document.getElementById('modal1').classList.remove('open')">
+          <i class="ph-light ph-check icon-md"></i> Подтвердить
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="kit-footer">
+    <div style="font-weight:700;color:var(--nm-text-dark);margin-bottom:6px">AI Predict Arena · UI Kit v2.0 — Light Neumorphism</div>
+    Вдохновлено: <a href="https://demo.themesberg.com/neumorphism-ui-pro/" style="color:var(--nm-secondary)">Themesberg Neumorphism UI Pro</a> · Palette #e6e7ee · Font: Nunito Sans
+  </footer>
+
+  <script>
+    /* Pill tabs */
+    function switchPillTab(btn) {
+      btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    /* Underline tabs */
+    function switchUnderlineTab(btn) {
+      btn.closest('.tabs-underline').querySelectorAll('.tab-underline-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    /* Аккордеон */
+    function toggleAcc(header) {
+      header.closest('.accordion-item').classList.toggle('open');
+    }
+
+    /* Checkbox sync */
+    function syncCheck(input, boxId) {
+      const box = document.getElementById(boxId);
+      if (input.checked) {
+        box.style.background = 'var(--nm-secondary)';
+        box.style.borderColor = 'var(--nm-secondary)';
+        box.style.color = '#fff';
+        box.style.boxShadow = '2px 2px 4px rgba(45,76,200,0.3), -1px -1px 3px rgba(255,255,255,0.5)';
+      } else {
+        box.style.background = '';
+        box.style.borderColor = '';
+        box.style.color = 'transparent';
+        box.style.boxShadow = '';
+      }
+    }
+
+    /* Закрытие по Esc */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+      }
+    });
+
+    /* Плавная прокрутка */
+    document.querySelectorAll('.kit-nav a').forEach(a => {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+
+</body>
+</html>
