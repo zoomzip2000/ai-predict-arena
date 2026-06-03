@@ -13,12 +13,13 @@
 - Не использовать иконки без явного смысла (например, иконку корзины 🛒 на платформе прогнозов).
 - Не использовать placeholder-картинки и lorem ipsum в production-коде.
 
-### ИКОНКИ — Phosphor Icons
-- **Библиотека:** [Phosphor Icons](https://phosphoricons.com/) — MIT License, CDN-ready
-- **Подключение:** `<link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/style.css" />`
+### ИКОНКИ — Phosphor Icons (Web Components)
+- **Библиотека:** [Phosphor Icons Web Components](https://github.com/phosphor-icons/webcomponents) — MIT License, CDN-ready
+- **Подключение:** `<script type="module" src="https://unpkg.com/@phosphor-icons/webcomponents@2.1"></script>`
 - **Стиль весов для AIPA:** `light` или `regular` — идеально гармонируют с мягкими neumorphic-тенями
-- **Использование:** `<i class="ph-light ph-chart-line"></i>` (weight через класс)
-- **Запрещённые веса:** `fill` — слишком тяжёлый для светлой neumorphic-поверхности
+- **Использование:** `<ph-chart-line weight="light"></ph-chart-line>` (weight передаётся через атрибут)
+- **Преимущество:** Рендерит чистый SVG прямо в DOM. Нет CORS-ограничений (всегда работает при локальном просмотре через `file://`), не зависит от файлов шрифтов, масштабируется без искажений.
+- **Запрещённые веса:** `weight="fill"` — слишком тяжёлый для светлой neumorphic-поверхности
 - Иконка должна нести смысл. Если смысл непонятен без подписи — выбери другую иконку.
 
 ### СТИЛЬ
