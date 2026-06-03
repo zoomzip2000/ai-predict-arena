@@ -67,7 +67,7 @@ export default function Header() {
           <CurrencyDollar className="text-secondary icon-sm" />
           <span className="mono-data font-bold text-text-primary text-sm">{getBalance()}</span>
           <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-bg-white/10 text-secondary">
-            {balanceInUse}
+            {balanceInUse === BalanceType.Demo ? "Demo" : "USDT"}
           </span>
         </div>
 

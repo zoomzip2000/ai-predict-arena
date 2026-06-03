@@ -162,7 +162,7 @@ export default function EventCard({ item, mainPage = false }: EventCardProps) {
     >
       {/* 1. Image block */}
       <div className="w-full h-40 mb-4 rounded-xl overflow-hidden">
-        <GetImageComponent imageLink={item.imageLink} imgUuid={item.imageUuid} />
+        <GetImageComponent imageLink={item.imageLink} imgUuid={item.imageUuid} categoryName={item.categoryName} />
       </div>
 
       {/* 2. End date & Betting end date */}
