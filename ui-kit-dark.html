@@ -1404,9 +1404,10 @@
     .pl__ball-inner-shadow {
       animation-name: pl-ballInnerShadow;
       box-shadow:
-        0 0.15em 0.3em rgba(255, 255, 255, 0.4) inset, /* Top shiny light reflection */
-        0 -0.9em 0.6em rgba(0, 0, 0, 0.95) inset,      /* Bottom dark shade */
-        0 0 0.3em rgba(0, 0, 0, 0.4) inset;           /* General inner shading */
+        0 0.1em 0.2em rgba(0, 0, 0, 0.45),               /* contact drop shadow under the ball */
+        0 0.12em 0.2em rgba(255, 255, 255, 0.22) inset, /* top-left shiny reflection highlight */
+        0 -0.8em 0.5em rgba(0, 0, 0, 0.65) inset,      /* deep bottom inner shadow */
+        0 0 0.2em rgba(0, 0, 0, 0.35) inset;           /* general ambient inner shadow */
       width: 100%;
       height: 100%;
     }
@@ -1432,6 +1433,7 @@
       z-index: -1;
     }
     .pl__ball-texture {
+      background-color: var(--nm-bg); /* Use the main background color as the base */
       overflow: hidden;
       width: 100%;
       height: 100%;
@@ -1443,7 +1445,9 @@
       background: url(https://assets.codepen.io/416221/snow.jpg) 0 0 / 50% 100%;
       content: "";
       display: block;
-      filter: invert(0.95) brightness(0.18) contrast(1.5); /* Turn the white marble texture into dark granite/obsidian */
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.15; /* Subtle white veins overlaying the background-colored ball */
       top: 0;
       right: 0;
       width: 200%;
