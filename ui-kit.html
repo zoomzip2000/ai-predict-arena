@@ -2503,12 +2503,13 @@
       localStorage.setItem('theme', 'dark');
       if (themeText) themeText.textContent = 'Светлая тема';
       
-      if (themeIcon) {
+      const currentIcon = document.getElementById('theme-toggle-icon');
+      if (currentIcon) {
         const newIcon = document.createElement('ph-sun');
         newIcon.setAttribute('weight', 'light');
         newIcon.setAttribute('class', 'icon-sm');
         newIcon.id = 'theme-toggle-icon';
-        themeIcon.parentNode.replaceChild(newIcon, themeIcon);
+        currentIcon.parentNode.replaceChild(newIcon, currentIcon);
       }
       if (themeBadge) themeBadge.textContent = 'UI Kit · Dark Neumorphism';
       updateSwatchHex();
