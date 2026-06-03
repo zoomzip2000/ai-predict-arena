@@ -1,0 +1,15 @@
+.taskListContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  width: 370px;
+  height: 465px;
+
+  margin-bottom: 72px;
+  border-radius: 10px;
+  backdrop-filter: blur(20px);
+  background: url(), linear-gradient(134.21deg, rgba(57, 198, 212, 0.3) 1.078%, rgba(57, 198, 212, 0.06) 109.025%);
+}

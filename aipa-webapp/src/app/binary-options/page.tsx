@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/FormControl";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Table } from "@/components/ui/Table";
 import { BetDirection } from "@/types/binaryOptions";
-import { Clock, TrendingUp, ShieldCheck } from "@phosphor-icons/react";
+import { Clock, TrendUp, ShieldCheck } from "@phosphor-icons/react";
 
 function BinaryOptionsContent() {
   const {
@@ -86,7 +86,7 @@ function BinaryOptionsContent() {
         {/* Betting Panel */}
         <div className="nm-card p-6 flex flex-col gap-6">
           <div className="flex items-center gap-2 border-b border-nm-border pb-4">
-            <TrendingUp size={20} className="text-secondary" />
+            <TrendUp size={20} className="text-secondary" />
             <h2 className="text-base font-extrabold text-text-primary margin-0">Панель управления</h2>
           </div>
 

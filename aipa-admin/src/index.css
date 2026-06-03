@@ -1,0 +1,231 @@
+/* AIPA ADMIN PANEL - NEUMORPHIC LIGHT STYLING */
+
+:root {
+  --nm-bg:          #e6e7ee;
+  --nm-bg-light:    #ECF0F3;
+  --nm-bg-white:    #fafbfe;
+  --nm-surface:     #e6e7ee;
+  --nm-border:      #D1D9E6;
+
+  /* Text colors */
+  --nm-text-dark:   #31344b;
+  --nm-text-body:   #44476a;
+  --nm-text-muted:  #66799e;
+  --nm-text-gray:   #93a5be;
+
+  /* Accent colors */
+  --nm-secondary:   #2D4CC8;   /* CTA Blue */
+  --nm-success:     #18634B;
+  --nm-danger:      #A91E2C;
+  --nm-warning:     #F0B400;
+  --nm-info:        #0056B3;
+
+  /* Shadows */
+  --shadow-soft:
+    6px 6px 12px #b8b9be,
+    -6px -6px 12px #ffffff;
+
+  --shadow-soft-sm:
+    3px 3px 6px #b8b9be,
+    -3px -3px 6px #ffffff;
+
+  --shadow-soft-lg:
+    10px 10px 20px #b8b9be,
+    -10px -10px 20px #ffffff;
+
+  --shadow-inset:
+    inset 2px 2px 5px #b8b9be,
+    inset -3px -3px 7px #ffffff;
+
+  --shadow-inset-sm:
+    inset 1px 1px 3px #b8b9be,
+    inset -2px -2px 5px #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', Inter, system-ui, sans-serif;
+  background-color: var(--nm-bg);
+  color: var(--nm-text-body);
+  font-size: 14px;
+}
+
+/* Sidebar & Layout */
+.admin-layout {
+  display: flex;
+  min-h-screen: 100vh;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background-color: var(--nm-bg);
+  border-right: 1px solid var(--nm-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.02);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: var(--nm-bg-light);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Neumorphic components */
+.nm-card {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.nm-card-hover:hover {
+  box-shadow: var(--shadow-soft-lg);
+  transform: translateY(-2px);
+}
+
+.nm-card-inset {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-inset);
+  padding: 1.5rem;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  color: var(--nm-text-dark);
+  font-weight: 700;
+  margin-top: 0;
+}
+
+/* Neumorphic Buttons */
+.btn-nm {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  color: var(--nm-text-dark);
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-nm:hover {
+  box-shadow: var(--shadow-soft);
+  color: var(--nm-secondary);
+}
+
+.btn-nm:active {
+  box-shadow: var(--shadow-inset-sm);
+}
+
+.btn-nm-primary {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-secondary);
+  color: var(--nm-secondary);
+  font-weight: 700;
+}
+
+.btn-nm-primary:hover {
+  background: var(--nm-secondary);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(45, 76, 200, 0.2);
+}
+
+.btn-nm-danger {
+  color: var(--nm-danger);
+  border-color: var(--nm-danger);
+}
+
+.btn-nm-danger:hover {
+  background: var(--nm-danger);
+  color: #fff;
+}
+
+/* Inputs */
+.form-control-nm {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  box-shadow: var(--shadow-inset-sm);
+  color: var(--nm-text-dark);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+
+.form-control-nm:focus {
+  border-color: var(--nm-secondary);
+}
+
+/* Tables */
+.table-nm {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table-nm th {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 2px solid var(--nm-border);
+  color: var(--nm-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.table-nm td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--nm-border);
+  color: var(--nm-text-body);
+}
+
+.table-nm tr:hover td {
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+/* Badges */
+.badge-nm {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-nm-success {
+  background-color: rgba(24, 99, 75, 0.1);
+  color: var(--nm-success);
+  border: 1px solid rgba(24, 99, 75, 0.2);
+}
+
+.badge-nm-danger {
+  background-color: rgba(169, 30, 44, 0.1);
+  color: var(--nm-danger);
+  border: 1px solid rgba(169, 30, 44, 0.2);
+}
+
+.badge-nm-warning {
+  background-color: rgba(240, 180, 0, 0.1);
+  color: var(--nm-warning);
+  border: 1px solid rgba(240, 180, 0, 0.2);
+}

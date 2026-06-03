@@ -35,7 +35,7 @@ const getPublicIp = async (): Promise<string | null> => {
   }
 };
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.mycoin-pm.com";
 
 const apiClient = axios.create({
   baseURL,

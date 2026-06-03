@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Copy, CheckCircle, Warning, ShieldAlert, Key, ClipboardText } from "@phosphor-icons/react";
+import { Copy, CheckCircle, Warning, Key, ClipboardText } from "@phosphor-icons/react";
 import Modal from "./Modal";
 import Button from "./Button";
-import FormControl from "./FormControl";
+import { Input } from "./FormControl";
 import { generateAddressQrMethod, borrowPaymentAddressMethod } from "../../api/wallet";
 
 // Helper to copy text to clipboard
@@ -219,7 +219,7 @@ export function WithdrawUsdtModal({ isOpen, onClose, onSubmitted, userBalance, c
         {/* Amount Input */}
         <div>
           <label className="text-xs font-bold text-text-muted uppercase mb-1 block">Сумма вывода</label>
-          <FormControl
+          <Input
             type="number"
             placeholder="USDT"
             value={amount}
@@ -240,7 +240,7 @@ export function WithdrawUsdtModal({ isOpen, onClose, onSubmitted, userBalance, c
         {/* Destination Wallet Address Input */}
         <div>
           <label className="text-xs font-bold text-text-muted uppercase mb-1 block">Адрес Tether USDT TRC-20</label>
-          <FormControl
+          <Input
             type="text"
             placeholder="Например: TY2h4..."
             value={address}
@@ -351,7 +351,7 @@ export function TwoFactorInfoModal({ isOpen, onClose, onAction, isTelegram }: Tw
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Требуется защита 2FA">
       <div className="flex flex-col items-center gap-4 text-center py-4">
-        <ShieldAlert size={64} className="text-warning" />
+        <Warning size={64} className="text-warning" />
         <p className="text-text-primary font-bold">Для выполнения финансовых операций необходимо подключить 2FA</p>
         <p className="text-xs text-text-muted">
           {isTelegram
@@ -412,7 +412,7 @@ export function TwoFactorModal({ isOpen, onClose, onSubmitCode, qrCodeImage, sec
 
         <div>
           <label className="text-xs font-bold text-text-muted uppercase mb-1 block text-left">Пин-код из приложения</label>
-          <FormControl
+          <Input
             type="text"
             maxLength={6}
             placeholder="000000"
@@ -455,7 +455,7 @@ export function PinCodeModal({ isOpen, onClose, onSubmit }: PinCodeModalProps) {
           Пожалуйста, введите 6-значный одноразовый пароль из вашего приложения Google Authenticator для подтверждения транзакции.
         </p>
         <div className="py-2">
-          <FormControl
+          <Input
             type="text"
             maxLength={6}
             placeholder="000000"

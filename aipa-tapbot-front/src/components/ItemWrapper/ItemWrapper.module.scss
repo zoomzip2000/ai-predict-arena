@@ -1,0 +1,110 @@
+.completeTaskBorder {
+  box-sizing: border-box;
+  display: flex;
+
+  gap: 20px;
+
+  width: 330px;
+  height: 69px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 1px solid rgb(59, 218, 33);
+
+  font-weight: 400;
+  letter-spacing: 0%;
+  text-align: left;
+
+  cursor: pointer;
+
+  h3 {
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  span {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.lockedTaskBorder {
+  box-sizing: border-box;
+
+  display: flex;
+
+  gap: 20px;
+
+  border: 1px solid rgb(149, 150, 155);
+
+  width: 330px;
+  height: 69px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border-radius: 10px;
+
+  font-weight: 400;
+  letter-spacing: 0%;
+  text-align: left;
+
+  cursor: pointer;
+
+  h3 {
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  span {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.activeTaskBorder {
+  box-sizing: border-box;
+
+  display: flex;
+
+  gap: 20px;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  border-right-color: rgb(165, 28, 187);
+  border-left-color: rgb(23, 50, 195);
+  background:
+    linear-gradient(to left, rgb(165, 28, 187) 0%, rgb(23, 50, 195) 100%) top/100% 1px,
+    linear-gradient(to left, #d53a9d 0%, rgb(23, 50, 195) 100%) bottom/100% 1px;
+  background-repeat: no-repeat;
+
+  width: 330px;
+  height: 69px;
+  box-sizing: border-box;
+  background-color: transparent;
+
+  font-weight: 400;
+  letter-spacing: 0%;
+  text-align: left;
+
+  cursor: pointer;
+
+  h3 {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.resetLink {
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}

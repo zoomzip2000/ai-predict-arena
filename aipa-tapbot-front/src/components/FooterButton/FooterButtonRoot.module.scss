@@ -1,0 +1,12 @@
+.footerButton {
+  width: 100px;
+  height: 80px;
+  border-radius: 10px;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(#1732c3, #a51cbb);
+
+  background: url(.png), linear-gradient(101.35deg, rgba(57, 198, 212, 0.3) 0.3%, rgba(57, 198, 212, 0.06) 109.42%);
+  background-blend-mode: overlay, normal;
+  backdrop-filter: blur(20px);
+}

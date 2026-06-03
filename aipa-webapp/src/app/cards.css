@@ -1,0 +1,187 @@
+/* ═══════════════════════════════════════════════════════════
+   CARDS & NEUMORPHIC CONTAINERS
+   ═══════════════════════════════════════════════════════════ */
+
+.card {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-soft-lg);
+  transform: translateY(-2px);
+}
+
+.card-body { padding: 24px; }
+
+.card-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--nm-border);
+  background: var(--nm-bg);
+}
+
+.card-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--nm-border);
+  background: var(--nm-bg);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--nm-text-dark);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.card-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--nm-text-muted);
+  line-height: 1.6;
+}
+
+/* Inset card variant */
+.card-inset {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-inset);
+}
+
+/* Карточка предсказания (pricing-style) */
+.pred-card {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  width: 100%; /* Make responsive */
+  max-width: 320px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  margin: 0 auto;
+}
+
+.pred-card:hover { box-shadow: var(--shadow-soft-lg); transform: translateY(-4px); }
+
+.pred-card__price-box {
+  margin: 24px 20px 0;
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-inset);
+  padding: 20px;
+  text-align: center;
+}
+
+.pred-card__currency {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--nm-text-muted);
+  font-weight: 400;
+  vertical-align: super;
+}
+
+.pred-card__amount {
+  font-family: var(--font-mono);
+  font-size: 40px; /* Scaled down slightly to fit cards in layout grid */
+  font-weight: 700;
+  color: var(--nm-text-dark);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.pred-card__period {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nm-text-muted);
+}
+
+.pred-card__body { padding: 20px; }
+
+.pred-card__desc {
+  font-size: 13px;
+  color: var(--nm-text-muted);
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.pred-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.pred-card__list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--nm-border);
+  font-size: 13px;
+  color: var(--nm-text-body);
+}
+
+.pred-card__list li:last-child { border-bottom: none; }
+
+.pred-card__list strong {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--nm-text-muted);
+}
+
+.pred-card__list span { color: var(--nm-secondary); font-weight: 600; font-family: var(--font-mono); font-size: 13px; }
+
+.pred-card__actions { padding-bottom: 20px; text-align: center; }
+
+/* Utilities */
+.nm-card {
+  background-color: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.nm-card:hover {
+  box-shadow: var(--shadow-soft-lg);
+  transform: translateY(-2px);
+}
+
+.nm-card-inset {
+  background-color: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-inset);
+}
+
+.nm-shadow-soft { box-shadow: var(--shadow-soft); }
+.nm-shadow-soft-sm { box-shadow: var(--shadow-soft-sm); }
+.nm-shadow-inset { box-shadow: var(--shadow-inset); }
+.nm-shadow-inset-sm { box-shadow: var(--shadow-inset-sm); }
+
+.nm-card-plain {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+}
+
+.nm-inset {
+  background: var(--nm-bg);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-inset);
+  padding: 16px;
+}

@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${spaceGrotesk.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${spaceMono.variable} h-full antialiased light`}
     >
       <body className="min-h-full font-sans selection:bg-accent/30 selection:text-white flex flex-col">
         <StoreProvider>

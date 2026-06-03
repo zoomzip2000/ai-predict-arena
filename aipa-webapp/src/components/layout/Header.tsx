@@ -3,15 +3,17 @@
 import React from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { User, CurrencyDollar, Play, Moon, Sun } from "@phosphor-icons/react";
+import { User, CurrencyDollar, Play, Moon, Sun, List } from "@phosphor-icons/react";
 import { setBalanceInUse, BalanceType } from "@/store/slices/userSlice";
-import { RootState } from "@/store";
+import { setOpenMobMenuAction } from "@/store/slices/mainSlice";
+import { RootState, AppDispatch } from "@/store";
+import HeaderMobile from "./HeaderMobile";
 
 export default function Header() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector((state: RootState) => state.user.userInfo);
   const balanceInUse = useSelector((state: RootState) => state.user.balanceInUse);
-  const [theme, setTheme] = React.useState<"dark" | "light">("dark");
+  const [theme, setTheme] = React.useState<"dark" | "light">("light");
 
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
@@ -91,7 +93,18 @@ export default function Header() {
         <Link href="/account" className="btn-icon active border border-nm-border">
           <User className="icon-sm" />
         </Link>
+
+        {/* Burger menu for mobile */}
+        <button
+          onClick={() => dispatch(setOpenMobMenuAction(true))}
+          className="btn-icon active border border-nm-border flex md:hidden cursor-pointer"
+        >
+          <List className="icon-sm" />
+        </button>
       </div>
+
+      {/* Mobile Drawer Menu */}
+      <HeaderMobile />
     </header>
   );
 }

@@ -37,4 +37,19 @@
   - Проект подготовлен к бесплатному деплою на Cloudflare Pages через добавление опции `output: "export"` в [next.config.ts](file:///D:/MyCoin/ai-predict-arena/aipa-webapp/next.config.ts), что генерирует статический HTML/JS/CSS при сборке.
   - Все файлы успешно закоммичены и отправлены в GitHub-репозиторий `zoomzip2000/ai-predict-arena` на ветку `main`.
 * **Текущий статус**: Первая веха полностью закрыта. Статический интерфейс и live-HUD готовы к развертыванию.
-* **Следующий шаг**: Итерация 4 — Проектирование базы данных в Supabase (PostgreSQL), перенос схем из старого монолита и Telegram-бота.
+* **Следующий шаг**: Развертывание и модульный рефакторинг фронтенда (aipa-webapp, aipa-admin, aipa-tapbot-front).
+
+### [2026-06-03] Итерация 4: Перенос главной страницы WebApp (1 в 1) и сброс темы на Light Mode
+* **Статус**: Выполнено.
+* **Описание изменений**:
+  - Активирован Light Mode (светлая тема) по умолчанию: класс `light` добавлен в корневой тег `<html>` в [layout.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/app/layout.tsx), и состояние переключателя в [Header.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/components/layout/Header.tsx) выставлено в `"light"`.
+  - Скопированы все изображения и медиа-ресурсы из `mycoin-webapp-v2/public` в `aipa-webapp/public/` для сохранения 1-в-1 верстки.
+  - Созданы новые чистые TSX-компоненты: [MainBanner.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/components/home/MainBanner.tsx), [CategoryList.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/components/home/CategoryList.tsx), [Partners.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/components/home/Partners.tsx), [EventCard.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/components/home/EventCard.tsx).
+  - Все логические хуки, вычисления и форматирование дат вынесены в [useEventCard.ts](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/hooks/useEventCard.ts) (до 100 строк).
+  - Картинки событий выведены через модульный [GetImageComponent.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/components/ui/GetImageComponent.tsx).
+  - Полностью переписана [page.tsx](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/app/page.tsx) главной страницы WebApp, убрав двухколоночный дашборд и вернув 1-в-1 верстку оригинального MyCoin (Баннер, категории, карточки событий, партнеры, HowItWorks и Benefits).
+  - Добавлена оффлайн-заглушка с mock-событиями в [useActiveEvents.ts](file:///d:/MyCoin/ai-predict-arena/aipa-webapp/src/hooks/useActiveEvents.ts) на случай ошибок API/CORS, чтобы страница загружалась стабильно.
+  - Проект `aipa-webapp` успешно собирается (`npm run build`) без ошибок типов TypeScript и Next.js.
+  - Создан подробный глобальный план [task.md](file:///d:/MyCoin/ai-predict-arena/task.md) в корне `ai-predict-arena` по микро-менеджменту всего фронтенда (клиент, мобилка, админка, Telegram Mini App).
+* **Текущий статус**: Светлая тема установлена по умолчанию. Главная страница WebApp полностью воссоздана 1-в-1 с модульным разделением кода. Проект компилируется успешно.
+* **Следующий шаг**: Раздел 1 Шаг 3 плана — перенос недостающих страниц экосистемы (О нас, Правила, Безопасность, Комиссии, Отчеты) и мобильная адаптивность меню.

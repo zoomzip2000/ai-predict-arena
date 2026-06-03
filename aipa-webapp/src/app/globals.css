@@ -6,23 +6,40 @@
 
 :root {
   /* --- Тёмная тема (Dark Neumorphism) - По умолчанию --- */
-  --bg-primary:      #22242a;
-  --bg-secondary:    #1a1c20;
-  --bg-white:        #292c34;
-  --nm-border:       #2c2f37;
+  --nm-bg:          #22242a;   /* основной фоновый цвет */
+  --nm-bg-light:    #1a1c20;   /* чуть темнее */
+  --nm-bg-white:    #292c34;   /* чуть светлее, для ховеров */
+  --nm-surface:     #22242a;   /* поверхность карточек */
+  --nm-border:      #2c2f37;   /* цвет рамок */
 
   /* Текст */
-  --text-primary:    #f3f4f6;
-  --text-secondary:  #cbd5e1;
-  --text-muted:      #94a3b8;
-  --text-gray:       #64748b;
+  --nm-text-dark:   #f3f4f6;   /* заголовки (белый) */
+  --nm-text-body:   #cbd5e1;   /* основной текст (светло-серый) */
+  --nm-text-muted:  #94a3b8;   /* второстепенный */
+  --nm-text-gray:   #64748b;   /* placeholder */
 
   /* Акценты */
-  --color-secondary: #06b6d4;   /* Циан CTA */
-  --color-success:   #22c55e;   /* Зелёный */
-  --color-danger:    #ef4444;   /* Красный */
-  --color-warning:   #eab308;   /* Жёлтый */
-  --color-info:      #9333ea;   /* Фиолетовый */
+  --nm-secondary:   #06b6d4;   /* циановый неон — основная кнопка CTA */
+  --nm-success:     #22c55e;   /* зелёный неон */
+  --nm-danger:      #ef4444;   /* красный неон */
+  --nm-warning:     #eab308;   /* желтый */
+  --nm-info:        #9333ea;   /* фиолетовый неон */
+  --nm-dark:        #1a1c20;   /* глубокий темный */
+  --nm-soft:        #22242a;   /* мягкий (= bg) */
+
+  /* Вспомогательные переменные для совместимости */
+  --bg-primary:      var(--nm-bg);
+  --bg-secondary:    var(--nm-bg-light);
+  --bg-white:        var(--nm-bg-white);
+  --text-primary:    var(--nm-text-dark);
+  --text-secondary:  var(--nm-text-body);
+  --text-muted:      var(--nm-text-muted);
+  --text-gray:       var(--nm-text-gray);
+  --color-secondary: var(--nm-secondary);
+  --color-success:   var(--nm-success);
+  --color-danger:    var(--nm-danger);
+  --color-warning:   var(--nm-warning);
+  --color-info:      var(--nm-info);
 
   /* Тени */
   --shadow-soft:
@@ -59,23 +76,26 @@
 
 .light {
   /* --- Светлая тема (Light Neumorphism) --- */
-  --bg-primary:      #e6e7ee;
-  --bg-secondary:    #ECF0F3;
-  --bg-white:        #fafbfe;
-  --nm-border:       #D1D9E6;
+  --nm-bg:          #e6e7ee;
+  --nm-bg-light:    #ECF0F3;
+  --nm-bg-white:    #fafbfe;
+  --nm-surface:     #e6e7ee;
+  --nm-border:      #D1D9E6;
 
   /* Текст */
-  --text-primary:    #31344b;
-  --text-secondary:  #44476a;
-  --text-muted:      #66799e;
-  --text-gray:       #93a5be;
+  --nm-text-dark:   #31344b;
+  --nm-text-body:   #44476a;
+  --nm-text-muted:  #66799e;
+  --nm-text-gray:   #93a5be;
 
   /* Акценты */
-  --color-secondary: #2D4CC8;   /* Синий CTA */
-  --color-success:   #18634B;
-  --color-danger:    #A91E2C;
-  --color-warning:   #F0B400;
-  --color-info:      #0056B3;
+  --nm-secondary:   #2D4CC8;   /* Синий CTA */
+  --nm-success:     #18634B;
+  --nm-danger:      #A91E2C;
+  --nm-warning:     #F0B400;
+  --nm-info:        #0056B3;
+  --nm-dark:        #31344b;
+  --nm-soft:        #e6e7ee;
 
   /* Тени */
   --shadow-soft:
@@ -111,8 +131,8 @@
 
 html {
   font-family: var(--font-family);
-  background-color: var(--bg-primary);
-  color: var(--text-secondary);
+  background-color: var(--nm-bg);
+  color: var(--nm-text-body);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.55;
@@ -123,14 +143,14 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background-color: var(--nm-bg);
 }
 
 /* Вертикальная сетка полей (Baseline Grid) */
 h1 {
   font-size: 52px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--nm-text-dark);
   line-height: 1.05;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
@@ -139,7 +159,7 @@ h1 {
 h2 {
   font-size: 38px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--nm-text-dark);
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin-bottom: 16px;
@@ -148,7 +168,7 @@ h2 {
 h3 {
   font-size: 26px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--nm-text-dark);
   line-height: 1.25;
   letter-spacing: -0.01em;
   margin-bottom: 12px;
@@ -157,7 +177,7 @@ h3 {
 h4 {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--nm-text-dark);
   line-height: 1.35;
   margin-bottom: 8px;
 }
@@ -165,38 +185,6 @@ h4 {
 p {
   margin-bottom: 16px;
 }
-
-/* ═══════════════════════════════════════════════════════════
-   УТИЛИТЫ И НЕЙМОРФИЧЕСКИЕ КЛАССЫ
-   ═══════════════════════════════════════════════════════════ */
-
-.nm-bg { background-color: var(--bg-primary); }
-.nm-bg-deep { background-color: var(--bg-secondary); }
-
-.nm-card {
-  background-color: var(--bg-primary);
-  border: 1px solid var(--nm-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.nm-card:hover {
-  box-shadow: var(--shadow-soft-lg);
-  transform: translateY(-2px);
-}
-
-.nm-card-inset {
-  background-color: var(--bg-primary);
-  border: 1px solid var(--nm-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-inset);
-}
-
-.nm-shadow-soft { box-shadow: var(--shadow-soft); }
-.nm-shadow-soft-sm { box-shadow: var(--shadow-soft-sm); }
-.nm-shadow-inset { box-shadow: var(--shadow-inset); }
-.nm-shadow-inset-sm { box-shadow: var(--shadow-inset-sm); }
 
 /* Моноширинные числовые ячейки */
 .mono-data {
@@ -211,14 +199,14 @@ p {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--nm-bg);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--nm-border);
   border-radius: var(--radius-pill);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--nm-text-muted);
 }
 
 @media (max-width: 768px) {
@@ -226,3 +214,12 @@ p {
     display: none; /* скрываем на мобилках */
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   IMPORTING COMPONENT STYLESHEETS
+   ═══════════════════════════════════════════════════════════ */
+@import "./buttons.css";
+@import "./forms.css";
+@import "./cards.css";
+@import "./components.css";
+@import "./preloader.css";
