@@ -53,3 +53,20 @@
   - Создан подробный глобальный план [task.md](file:///d:/MyCoin/ai-predict-arena/task.md) в корне `ai-predict-arena` по микро-менеджменту всего фронтенда (клиент, мобилка, админка, Telegram Mini App).
 * **Текущий статус**: Светлая тема установлена по умолчанию. Главная страница WebApp полностью воссоздана 1-в-1 с модульным разделением кода. Проект компилируется успешно.
 * **Следующий шаг**: Раздел 1 Шаг 3 плана — перенос недостающих страниц экосистемы (О нас, Правила, Безопасность, Комиссии, Отчеты) и мобильная адаптивность меню.
+
+### [2026-06-03] Итерация 5: Первый деплой всех 3-х фронтенд-проектов на Cloudflare Pages
+* **Статус**: Выполнено.
+* **Описание изменений**:
+  - Успешно собраны все 3 подпроекта: `aipa-webapp` (Next.js, 18 статических страниц), `aipa-admin` (Vite/React), `aipa-tapbot-front` (Vite/React).
+  - Созданы 3 Cloudflare Pages проекта и выполнен первый деплой через `npx wrangler pages deploy`:
+    - 🌐 **WebApp** (рынок прогнозов): https://ai-predict-arena.pages.dev
+    - 🛡️ **Admin-панель**: https://aipa-admin.pages.dev
+    - 🤖 **Telegram Tapbot**: https://aipa-tapbot.pages.dev
+  - Создан [deploy.ps1](file:///d:/MyCoin/ai-predict-arena/deploy.ps1) — PowerShell-скрипт одной командой для пересборки и деплоя всех 3-х проектов.
+  - Создан [.github/workflows/deploy.yml](file:///d:/MyCoin/ai-predict-arena/.github/workflows/deploy.yml) — GitHub Actions CI/CD, автодеплой при каждом `git push` в `main`.
+  - Обновлен [.gitignore](file:///d:/MyCoin/ai-predict-arena/.gitignore) — добавлена папка `.wrangler/` в исключения.
+  - Выполнен `git push origin main` — все изменения (admin, tapbot, webapp, CI/CD, скрипты) отправлены в GitHub.
+* **Cloudflare Account ID**: `96177d40d5e6efd0743f8c5fd02e57e3`
+* **Текущий статус**: Все 3 фронтенда доступны в сети. Для активации GitHub Actions CI/CD нужно добавить секреты `CLOUDFLARE_API_TOKEN` и `CLOUDFLARE_ACCOUNT_ID` в настройки репозитория на GitHub.
+* **Следующий шаг**: Рефакторинг оставшихся страниц (Терминал Опционов, Кликер, Задачи, Друзья), стилизация Admin под Neumorphism.
+

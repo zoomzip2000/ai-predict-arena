@@ -149,7 +149,7 @@
 
 ### 📋 Пошаговый план:
 
-- [/] **4.1. Проверка сборки**
+- [x] **4.1. Проверка сборки**
   - [x] Запустить `npm run build` в `aipa-webapp`. (Выполнено)
   - [x] Запустить `npm run build` в `aipa-admin`. (Выполнено)
   - [x] Запустить `npm run build` в `aipa-tapbot-front`. (Выполнено)
@@ -158,3 +158,33 @@
   - [ ] Заменить все стандартные Bootstrap-карточки на `.nm-card` и `.nm-card-inset`.
 - [ ] **4.3. Адаптивное тестирование**
   - [ ] Протестировать работу интерфейсов на эмуляторе мобильных экранов (Chrome DevTools).
+
+---
+
+## 🚀 ИНФРАСТРУКТУРА: Деплой и CI/CD
+**Цель**: Автоматический деплой при каждом `git push` на Cloudflare Pages.
+
+### Сервисы:
+| Сервис | Роль | URL |
+|---|---|---|
+| **Cloudflare Pages** | Хостинг 3-х фронтендов | pages.dev |
+| **Render.com** | Backend (Java Spring Boot) | render.com |
+| **Supabase** | База данных PostgreSQL | supabase.com |
+| **Cron-job.org** | Планировщик задач | cron-job.org |
+
+### Живые URL:
+- 🌐 **WebApp**: https://ai-predict-arena.pages.dev
+- 🛡️ **Admin**: https://aipa-admin.pages.dev  
+- 🤖 **Tapbot**: https://aipa-tapbot.pages.dev
+
+### Чеклист деплоя:
+- [x] **D.1. Первый деплой всех 3-х проектов** (Выполнено)
+  - [x] aipa-webapp → https://ai-predict-arena.pages.dev
+  - [x] aipa-admin → https://aipa-admin.pages.dev
+  - [x] aipa-tapbot-front → https://aipa-tapbot.pages.dev
+- [x] **D.2. Скрипт ручного деплоя** `deploy.ps1` в корне монорепо. (Выполнено)
+- [x] **D.3. GitHub Actions CI/CD** `.github/workflows/deploy.yml` — авто-деплой при push в main. (Создан)
+- [ ] **D.4. Добавить GitHub Secrets** для автоматического CI/CD:
+  - [ ] `CLOUDFLARE_API_TOKEN` — создать на https://dash.cloudflare.com/profile/api-tokens (шаблон: Edit Cloudflare Workers)
+  - [ ] `CLOUDFLARE_ACCOUNT_ID` = `96177d40d5e6efd0743f8c5fd02e57e3`
+- [ ] **D.5. Подключить кастомный домен** (опционально) в Cloudflare Pages → Custom domains.
