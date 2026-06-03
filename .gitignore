@@ -1,0 +1,43 @@
+# Secrets & Credentials
+secrets.json
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Java/Maven Build
+target/
+*.class
+.mvn/wrapper/
+.metadata/
+.recommenders/
+bin/
+dependency-reduced-pom.xml
+
+# Node/Next.js/React Build
+node_modules/
+.next/
+build/
+dist/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+.cache/
+
+# OS/System files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
