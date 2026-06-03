@@ -11,7 +11,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <!-- Phosphor Icons — light weight, MIT license -->
   <!-- ПРАВИЛО: НИКОГДА не использовать emoji в UI. Только Phosphor Icons (ph-light / ph-regular) -->
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/style.css" />
+  <script type="module" src="https://unpkg.com/@phosphor-icons/webcomponents@2.1"></script>
+
+  <script>
+    class PhIcon extends HTMLElement {
+      connectedCallback() {
+        setTimeout(() => {
+          const name = this.getAttribute('name');
+          if (!name) return;
+          const weight = this.getAttribute('weight') || 'light';
+          const el = document.createElement(`ph-${name}`);
+          el.setAttribute('weight', weight);
+          // Copy classes and any other attributes
+          for (let i = 0; i < this.attributes.length; i++) {
+            const attr = this.attributes[i];
+            if (attr.name !== 'name' && attr.name !== 'weight') {
+              el.setAttribute(attr.name, attr.value);
+            }
+          }
+          if (this.parentNode) {
+            this.parentNode.replaceChild(el, this);
+          }
+        }, 0);
+      }
+    }
+    customElements.define('ph-icon', PhIcon);
+  </script>
+
 
   <style>
     /* ═══════════════════════════════════════════════════════════
@@ -473,18 +499,18 @@
     .btn-icon.active { box-shadow: var(--shadow-inset); }
 
     /* Phosphor Icons sizing helpers */
-    ph-icon, i[class^="ph-"] {
+    ph-icon, i[class^="ph-"], [class*="icon-"] {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       vertical-align: middle;
     }
-    .icon-sm  { font-size: 16px; }
-    .icon-md  { font-size: 20px; }
-    .icon-lg  { font-size: 24px; }
-    .icon-xl  { font-size: 32px; }
-    .icon-2xl { font-size: 40px; }
-    .icon-3xl { font-size: 48px; }
+    .icon-sm  { font-size: 16px; width: 16px; height: 16px; }
+    .icon-md  { font-size: 20px; width: 20px; height: 20px; }
+    .icon-lg  { font-size: 24px; width: 24px; height: 24px; }
+    .icon-xl  { font-size: 32px; width: 32px; height: 32px; }
+    .icon-2xl { font-size: 40px; width: 40px; height: 40px; }
+    .icon-3xl { font-size: 48px; width: 48px; height: 48px; }
 
     /* Sizes */
     .btn-sm { font-size: 13px; padding: 7px 18px; }
@@ -1602,45 +1628,45 @@
       <div class="component-group">
         <div class="component-item">
           <button class="btn-icon" aria-label="Уведомления">
-            <i class="ph-light ph-bell icon-md"></i>
+            <ph-icon name="bell" class="icon-md"></ph-icon>
           </button>
           <div class="component-label">.btn-icon — 44×44px, shadow-soft-sm<br>ph-bell (уведомления)</div>
         </div>
         <div class="component-item">
           <button class="btn-icon active" aria-label="Настройки">
-            <i class="ph-light ph-gear icon-md"></i>
+            <ph-icon name="gear" class="icon-md"></ph-icon>
           </button>
           <div class="component-label">.btn-icon.active — shadow-inset<br>ph-gear (настройки)</div>
         </div>
         <div class="component-item">
           <button class="btn-icon" aria-label="Поиск">
-            <i class="ph-light ph-magnifying-glass icon-md"></i>
+            <ph-icon name="magnifying-glass" class="icon-md"></ph-icon>
           </button>
           <div class="component-label">ph-magnifying-glass (поиск)</div>
         </div>
         <div class="component-item">
           <button class="btn-icon" aria-label="Закрыть">
-            <i class="ph-light ph-x icon-md"></i>
+            <ph-icon name="x" class="icon-md"></ph-icon>
           </button>
           <div class="component-label">ph-x (закрыть)</div>
         </div>
         <div class="component-item">
           <button class="btn btn-secondary btn-sm">
-            <i class="ph-light ph-chart-line-up icon-md"></i>
+            <ph-icon name="chart-line-up" class="icon-md"></ph-icon>
             Сделать прогноз
           </button>
           <div class="component-label">btn + ph-chart-line-up (прогноз)</div>
         </div>
         <div class="component-item">
           <button class="btn btn-success btn-sm">
-            <i class="ph-light ph-trend-up icon-md"></i>
+            <ph-icon name="trend-up" class="icon-md"></ph-icon>
             UP
           </button>
           <div class="component-label">btn-success + ph-trend-up</div>
         </div>
         <div class="component-item">
           <button class="btn btn-danger btn-sm">
-            <i class="ph-light ph-trend-down icon-md"></i>
+            <ph-icon name="trend-down" class="icon-md"></ph-icon>
             DOWN
           </button>
           <div class="component-label">btn-danger + ph-trend-down</div>
@@ -1670,7 +1696,7 @@
           <div class="form-group">
             <label class="form-label">Логин</label>
             <input class="form-control is-valid" type="text" value="predict_user" />
-            <div class="valid-feedback"><i class="ph-light ph-check-circle icon-sm"></i> Логин доступен</div>
+            <div class="valid-feedback"><ph-icon name="check-circle" class="icon-sm"></ph-icon> Логин доступен</div>
           </div>
           <div class="component-label">.form-control.is-valid — border: #18634B</div>
         </div>
@@ -1680,7 +1706,7 @@
           <div class="form-group">
             <label class="form-label">Email</label>
             <input class="form-control is-invalid" type="email" value="not_an_email" />
-            <div class="invalid-feedback"><i class="ph-light ph-warning-circle icon-sm"></i> Неверный формат email</div>
+            <div class="invalid-feedback"><ph-icon name="warning-circle" class="icon-sm"></ph-icon> Неверный формат email</div>
           </div>
           <div class="component-label">.form-control.is-invalid — border: #A91E2C</div>
         </div>
@@ -1783,7 +1809,7 @@
               </ul>
               <div class="pred-card__actions">
                 <button class="btn btn-secondary btn-sm btn-pill" style="width:100%">
-                  <i class="ph-light ph-chart-line-up icon-md"></i> Сделать прогноз
+                  <ph-icon name="chart-line-up" class="icon-md"></ph-icon> Сделать прогноз
                 </button>
               </div>
             </div>
@@ -1810,7 +1836,7 @@
               </ul>
               <div class="pred-card__actions">
                 <button class="btn btn-secondary btn-sm btn-pill" style="width:100%">
-                  <i class="ph-light ph-chart-line-up icon-md"></i> Сделать прогноз
+                  <ph-icon name="chart-line-up" class="icon-md"></ph-icon> Сделать прогноз
                 </button>
               </div>
             </div>
@@ -1836,7 +1862,7 @@
               </ul>
               <div class="pred-card__actions">
                 <button class="btn btn-primary btn-sm btn-pill" style="width:100%;box-shadow:var(--shadow-inset)" disabled>
-                  <i class="ph-light ph-check-circle icon-md"></i> Завершено
+                  <ph-icon name="check-circle" class="icon-md"></ph-icon> Завершено
                 </button>
               </div>
             </div>
@@ -1870,7 +1896,7 @@
             </div>
             <div class="card-footer">
               <button class="btn btn-secondary btn-sm" style="width:100%">
-                <i class="ph-light ph-currency-dollar icon-md"></i> Пополнить баланс
+                <ph-icon name="currency-dollar" class="icon-md"></ph-icon> Пополнить баланс
               </button>
             </div>
           </div>
@@ -1989,10 +2015,10 @@
           </div>
           <div class="modal-actions">
             <button class="btn btn-primary" style="flex:1">
-              <i class="ph-light ph-x icon-md"></i> Отмена
+              <ph-icon name="x" class="icon-md"></ph-icon> Отмена
             </button>
             <button class="btn btn-success" style="flex:1">
-              <i class="ph-light ph-check icon-md"></i> Подтвердить
+              <ph-icon name="check" class="icon-md"></ph-icon> Подтвердить
             </button>
           </div>
         </div>
@@ -2010,7 +2036,7 @@
       <div style="display:flex;flex-direction:column;gap:12px;max-width:600px">
 
         <div class="alert alert-soft alert-success" role="alert">
-          <div class="alert-icon"><i class="ph-light ph-check-circle icon-lg"></i></div>
+          <div class="alert-icon"><ph-icon name="check-circle" class="icon-lg"></ph-icon></div>
           <div>
             <strong>Победа!</strong> Ваш прогноз «BTC > $72K» подтверждён. Выплата $92.50 начислена.
             <a href="#"> Подробнее</a>
@@ -2019,7 +2045,7 @@
         <div class="component-label">.alert.alert-soft.alert-success — ph-check-circle</div>
 
         <div class="alert alert-soft alert-danger" role="alert">
-          <div class="alert-icon"><i class="ph-light ph-x-circle icon-lg"></i></div>
+          <div class="alert-icon"><ph-icon name="x-circle" class="icon-lg"></ph-icon></div>
           <div>
             <strong>Ошибка!</strong> Недостаточно средств на балансе для совершения ставки.
           </div>
@@ -2027,7 +2053,7 @@
         <div class="component-label">.alert.alert-soft.alert-danger — ph-x-circle</div>
 
         <div class="alert alert-soft alert-warning" role="alert">
-          <div class="alert-icon"><i class="ph-light ph-warning icon-lg"></i></div>
+          <div class="alert-icon"><ph-icon name="warning" class="icon-lg"></ph-icon></div>
           <div>
             <strong>Внимание!</strong> До закрытия приёма ставок осталось <strong>3 минуты</strong>.
           </div>
@@ -2035,7 +2061,7 @@
         <div class="component-label">.alert.alert-soft.alert-warning — ph-warning</div>
 
         <div class="alert alert-inset alert-info" role="alert">
-          <div class="alert-icon"><i class="ph-light ph-bell icon-lg"></i></div>
+          <div class="alert-icon"><ph-icon name="bell" class="icon-lg"></ph-icon></div>
           <div>
             <strong>Информация.</strong> Новое событие добавлено: EUR/USD > 1.09 (период 4 ч). <a href="#">Открыть</a>
           </div>
@@ -2140,37 +2166,37 @@
       <div class="component-group">
         <div class="component-item">
           <div class="icon-box icon-box-sm" title="ph-chart-bar">
-            <i class="ph-light ph-chart-bar icon-sm"></i>
+            <ph-icon name="chart-bar" class="icon-sm"></ph-icon>
           </div>
           <div class="component-label">.icon-box-sm 40×40<br>ph-chart-bar</div>
         </div>
         <div class="component-item">
           <div class="icon-box icon-box-md" title="ph-target">
-            <i class="ph-light ph-target icon-md"></i>
+            <ph-icon name="target" class="icon-md"></ph-icon>
           </div>
           <div class="component-label">.icon-box-md 56×56<br>ph-target</div>
         </div>
         <div class="component-item">
           <div class="icon-box icon-box-lg" title="ph-trophy">
-            <i class="ph-light ph-trophy icon-lg"></i>
+            <ph-icon name="trophy" class="icon-lg"></ph-icon>
           </div>
           <div class="component-label">.icon-box-lg 72×72<br>ph-trophy</div>
         </div>
         <div class="component-item">
           <div class="icon-box icon-box-xl" title="ph-currency-dollar">
-            <i class="ph-light ph-currency-dollar icon-xl"></i>
+            <ph-icon name="currency-dollar" class="icon-xl"></ph-icon>
           </div>
           <div class="component-label">.icon-box-xl 96×96<br>ph-currency-dollar</div>
         </div>
         <div class="component-item">
           <div class="icon-box icon-box-lg rounded" title="ph-lightning">
-            <i class="ph-light ph-lightning icon-lg"></i>
+            <ph-icon name="lightning" class="icon-lg"></ph-icon>
           </div>
           <div class="component-label">.icon-box.rounded — radius 50%<br>ph-lightning</div>
         </div>
         <div class="component-item">
           <div class="icon-box icon-box-md" style="background:var(--nm-secondary);color:#fff;box-shadow:4px 4px 8px rgba(45,76,200,0.3),-2px -2px 6px rgba(255,255,255,0.5)" title="ph-trend-up">
-            <i class="ph-light ph-trend-up icon-md"></i>
+            <ph-icon name="trend-up" class="icon-md"></ph-icon>
           </div>
           <div class="component-label">icon-box colored secondary<br>ph-trend-up</div>
         </div>
@@ -2344,10 +2370,10 @@
       </div>
       <div class="modal-actions">
         <button class="btn btn-primary" style="flex:1" onclick="document.getElementById('modal1').classList.remove('open')">
-          <i class="ph-light ph-x icon-md"></i> Отмена
+          <ph-icon name="x" class="icon-md"></ph-icon> Отмена
         </button>
         <button class="btn btn-success" style="flex:1" onclick="document.getElementById('modal1').classList.remove('open')">
-          <i class="ph-light ph-check icon-md"></i> Подтвердить
+          <ph-icon name="check" class="icon-md"></ph-icon> Подтвердить
         </button>
       </div>
     </div>
