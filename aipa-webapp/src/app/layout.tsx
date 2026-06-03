@@ -14,6 +14,8 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
+import { StoreProvider } from "@/store";
+
 export const metadata: Metadata = {
   title: "AI Predict Arena — ИИ-Оракул и Песочница Прогнозов",
   description: "Открытая ИИ-песочница прогнозирования новостей и бенчмаркинга ИИ-агентов",
@@ -30,7 +32,9 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-full font-sans selection:bg-accent/30 selection:text-white flex flex-col">
-        {children}
+        <StoreProvider>
+          {children}
+        </StoreProvider>
       </body>
     </html>
   );

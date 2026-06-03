@@ -1,84 +1,208 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════
+   AIPA NEUMORPHIC DESIGN SYSTEM (Single Source of Truth)
+   ═══════════════════════════════════════════════════════════ */
+
 :root {
-  --bg-primary: #080415;
-  --bg-secondary: #0f0a26;
-  --glass-bg: rgba(23, 15, 52, 0.45);
-  --color-primary: #9333ea;
-  --color-accent: #06b6d4;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
-  --color-success: #22c55e;
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  
-  --background: var(--bg-primary);
-  --foreground: var(--text-primary);
+  /* --- Тёмная тема (Dark Neumorphism) - По умолчанию --- */
+  --bg-primary:      #22242a;
+  --bg-secondary:    #1a1c20;
+  --bg-white:        #292c34;
+  --nm-border:       #2c2f37;
+
+  /* Текст */
+  --text-primary:    #f3f4f6;
+  --text-secondary:  #cbd5e1;
+  --text-muted:      #94a3b8;
+  --text-gray:       #64748b;
+
+  /* Акценты */
+  --color-secondary: #06b6d4;   /* Циан CTA */
+  --color-success:   #22c55e;   /* Зелёный */
+  --color-danger:    #ef4444;   /* Красный */
+  --color-warning:   #eab308;   /* Жёлтый */
+  --color-info:      #9333ea;   /* Фиолетовый */
+
+  /* Тени */
+  --shadow-soft:
+    6px 6px 12px #15161a,
+    -6px -6px 12px #2f323c;
+
+  --shadow-soft-sm:
+    3px 3px 6px #15161a,
+    -3px -3px 6px #2f323c;
+
+  --shadow-soft-lg:
+    10px 10px 20px #15161a,
+    -10px -10px 20px #2f323c;
+
+  --shadow-inset:
+    inset 3px 3px 6px #15161a,
+    inset -3px -3px 6px #2f323c;
+
+  --shadow-inset-sm:
+    inset 2px 2px 4px #15161a,
+    inset -2px -2px 4px #2f323c;
+
+  /* Шрифты */
+  --font-family: var(--font-sans), 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:   var(--font-mono), 'Space Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* Граничные радиусы */
+  --radius-sm:   0.3rem;
+  --radius:      0.55rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.5rem;
+  --radius-pill: 50rem;
 }
 
-@theme inline {
-  --color-bg-primary: var(--bg-primary);
-  --color-bg-secondary: var(--bg-secondary);
-  --color-glass-bg: var(--glass-bg);
-  --color-primary: var(--color-primary);
-  --color-accent: var(--color-accent);
-  --color-warning: var(--color-warning);
-  --color-danger: var(--color-danger);
-  --color-success: var(--color-success);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
+.light {
+  /* --- Светлая тема (Light Neumorphism) --- */
+  --bg-primary:      #e6e7ee;
+  --bg-secondary:    #ECF0F3;
+  --bg-white:        #fafbfe;
+  --nm-border:       #D1D9E6;
+
+  /* Текст */
+  --text-primary:    #31344b;
+  --text-secondary:  #44476a;
+  --text-muted:      #66799e;
+  --text-gray:       #93a5be;
+
+  /* Акценты */
+  --color-secondary: #2D4CC8;   /* Синий CTA */
+  --color-success:   #18634B;
+  --color-danger:    #A91E2C;
+  --color-warning:   #F0B400;
+  --color-info:      #0056B3;
+
+  /* Тени */
+  --shadow-soft:
+    6px 6px 12px #b8b9be,
+    -6px -6px 12px #ffffff;
+
+  --shadow-soft-sm:
+    3px 3px 6px #b8b9be,
+    -3px -3px 6px #ffffff;
+
+  --shadow-soft-lg:
+    10px 10px 20px #b8b9be,
+    -10px -10px 20px #ffffff;
+
+  --shadow-inset:
+    inset 2px 2px 5px #b8b9be,
+    inset -3px -3px 7px #ffffff;
+
+  --shadow-inset-sm:
+    inset 1px 1px 3px #b8b9be,
+    inset -2px -2px 5px #ffffff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БАЗОВЫЕ НАСТРОЙКИ СТИЛЕЙ И СЕТКИ (Vertical Rhythm & Typography)
+   ═══════════════════════════════════════════════════════════ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
-  background-size: 2.5rem 2.5rem;
   min-height: 100vh;
+  background-color: var(--bg-primary);
 }
 
-/* Glassmorphic Card Styling */
-.aipa-glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-  border-radius: 16px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+/* Вертикальная сетка полей (Baseline Grid) */
+h1 {
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
 }
 
-.aipa-glass-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(6, 182, 212, 0.25);
-  box-shadow: 0 12px 40px rgba(147, 51, 234, 0.18);
+h2 {
+  font-size: 38px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 
-/* Neumorphic Glass Button */
-.aipa-btn-glass {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  border-radius: 9999px;
-  transition: all 0.2s ease;
+h3 {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
 }
 
-.aipa-btn-glass:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin-bottom: 8px;
 }
 
-.aipa-btn-glass:active {
-  transform: scale(0.97);
+p {
+  margin-bottom: 16px;
 }
 
-/* Neon Glows */
-.neon-glow-purple {
-  box-shadow: 0 0 15px rgba(147, 51, 234, 0.35);
+/* ═══════════════════════════════════════════════════════════
+   УТИЛИТЫ И НЕЙМОРФИЧЕСКИЕ КЛАССЫ
+   ═══════════════════════════════════════════════════════════ */
+
+.nm-bg { background-color: var(--bg-primary); }
+.nm-bg-deep { background-color: var(--bg-secondary); }
+
+.nm-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.neon-glow-cyan {
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+.nm-card:hover {
+  box-shadow: var(--shadow-soft-lg);
+  transform: translateY(-2px);
+}
+
+.nm-card-inset {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--nm-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-inset);
+}
+
+.nm-shadow-soft { box-shadow: var(--shadow-soft); }
+.nm-shadow-soft-sm { box-shadow: var(--shadow-soft-sm); }
+.nm-shadow-inset { box-shadow: var(--shadow-inset); }
+.nm-shadow-inset-sm { box-shadow: var(--shadow-inset-sm); }
+
+/* Моноширинные числовые ячейки */
+.mono-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 
 /* Custom Scrollbar */
@@ -86,16 +210,19 @@ body {
   width: 6px;
   height: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: rgba(8, 4, 21, 0.5);
+  background: var(--bg-primary);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(147, 51, 234, 0.4);
-  border-radius: 9999px;
+  background: var(--nm-border);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(6, 182, 212, 0.6);
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none; /* скрываем на мобилках */
+  }
 }
